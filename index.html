@@ -252,9 +252,15 @@
         <div id="resumenNeto" class="summary-value neutro">0,00 €</div>
       </div>
       <div class="summary-card">
+        <div class="summary-label">Saldo cuentas (actual)</div>
+        <div id="resumenSaldoCuentas" class="summary-value pos">0,00 €</div>
+      </div>
+      <div class="summary-card">
         <div class="summary-label">% ahorro</div>
         <div id="resumenAhorro" class="summary-value pos">0,0 %</div>
         <button id="btnExportar" class="btn-export">Exportar datos (CSV)</button>
+        <button id="btnGuardarBackup" class="btn-export">Guardar backup</button>
+        <button id="btnCargarBackup" class="btn-export">Cargar backup</button>
       </div>
     </div>
 
@@ -306,6 +312,159 @@
         <div id="graficoIngresos"></div>
       </div>
     </div>
+
+    <!-- CUENTAS BANCARIAS -->
+    <section class="card cuentas">
+      <div class="card-header">
+        <div class="card-title">
+          <span>Cuenta corriente / bancos</span>
+          <span class="card-subtitle">Saldo total inicial + neto actual</span>
+        </div>
+        <div class="total">Saldo total: <span id="saldoCuentasActual">0,00 €</span></div>
+      </div>
+
+      <form id="formCuentas">
+        <div class="full">
+          <label for="bancoCuenta">Banco / cuenta</label>
+          <input type="text" id="bancoCuenta" placeholder="Ej: Cajamar, BBVA..." required />
+        </div>
+        <div>
+          <label for="saldoInicialCuenta">Saldo inicial (€)</label>
+          <input type="number" id="saldoInicialCuenta" required min="0" step="0.01" placeholder="0,00" />
+        </div>
+        <div class="full">
+          <button class="btn-add-mov" type="submit">Añadir cuenta</button>
+        </div>
+      </form>
+
+      <div id="listaCuentasWrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Banco / cuenta</th>
+              <th style="text-align:right;">Saldo inicial</th>
+              <th style="text-align:right;">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="listaCuentas"></tbody>
+        </table>
+        <div id="emptyCuentas" class="empty">No has añadido cuentas bancarias.</div>
+      </div>
+    </section>
+
+    <!-- INVERSION INMOBILIARIA -->
+    <section class="card inversion">
+      <div class="card-header">
+        <div class="card-title">
+          <span>Inversión inmobiliaria</span>
+          <span class="card-subtitle">Pisos, ROI, ROCE, rentabilidad y gastos asociados</span>
+        </div>
+      </div>
+
+      <form id="formInversion">
+        <div class="full">
+          <label for="direccionInversion">Dirección</label>
+          <input type="text" id="direccionInversion" placeholder="Calle, número, piso..." required />
+        </div>
+        <div>
+          <label for="localidadInversion">Localidad</label>
+          <input type="text" id="localidadInversion" placeholder="Ciudad / localidad" required />
+        </div>
+        <div>
+          <label for="fechaInversion">Fecha compra</label>
+          <input type="date" id="fechaInversion" />
+        </div>
+        <div>
+          <label for="precioCompraInversion">Precio de compra (€)</label>
+          <input type="number" id="precioCompraInversion" min="0" step="0.01" placeholder="0,00" />
+        </div>
+        <div>
+          <label for="capitalInvertidoInversion">Capital invertido (€)</label>
+          <input type="number" id="capitalInvertidoInversion" min="0" step="0.01" placeholder="0,00" />
+        </div>
+        <div>
+          <label for="rentaMensualInversion">Renta mensual (€)</label>
+          <input type="number" id="rentaMensualInversion" min="0" step="0.01" placeholder="0,00" />
+        </div>
+        <div class="full">
+          <label>
+            <input type="checkbox" id="ingresoConfirmadoInversion" />
+            Confirmar que se ha cobrado la renta este mes
+          </label>
+        </div>
+        <div class="full">
+          <label for="pdfIngresoInversion">Comprobante de ingreso (PDF)</label>
+          <input type="file" id="pdfIngresoInversion" accept="application/pdf" />
+        </div>
+        <div class="full">
+          <button class="btn-add-mov" type="submit">Añadir inversión</button>
+        </div>
+      </form>
+
+      <div id="listaInversionesWrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Dirección</th>
+              <th>Localidad</th>
+              <th style="text-align:right;">Renta mensual</th>
+              <th style="text-align:right;">ROI (bruto)</th>
+              <th style="text-align:right;">ROCE</th>
+              <th style="text-align:right;">Rent. neta</th>
+              <th style="text-align:center;">Ingreso confirmado</th>
+              <th>PDF ingreso</th>
+              <th style="text-align:right;">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="listaInversiones"></tbody>
+        </table>
+        <div id="emptyInversiones" class="empty">No has añadido inversiones inmobiliarias.</div>
+      </div>
+
+      <div style="margin-top: 18px;">
+        <div class="card-subtitle" style="margin-bottom:6px;">Gastos asociados al piso seleccionado</div>
+        <form id="formGastoInversion">
+          <div class="full">
+            <label for="inversionSeleccionadaGasto">Piso</label>
+            <select id="inversionSeleccionadaGasto" required></select>
+          </div>
+          <div>
+            <label for="importeGastoInversion">Importe (€)</label>
+            <input type="number" id="importeGastoInversion" min="0" step="0.01" placeholder="0,00" required />
+          </div>
+          <div>
+            <label for="periodicidadGastoInversion">Periodicidad</label>
+            <select id="periodicidadGastoInversion">
+              <option value="mensual">Mensual</option>
+              <option value="anual">Anual</option>
+            </select>
+          </div>
+          <div class="full">
+            <label for="tipoGastoInversion">Tipo de gasto</label>
+            <input type="text" id="tipoGastoInversion" placeholder="Ej: Seguro hogar, comunidad, alquiler..." required />
+          </div>
+          <div class="full">
+            <button class="btn-add-mov" type="submit">Añadir gasto al piso</button>
+          </div>
+        </form>
+
+        <div id="listaGastosInversionWrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Periodicidad</th>
+                <th style="text-align:right;">Importe</th>
+                <th style="text-align:right;">Importe anual</th>
+                <th style="text-align:right;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="listaGastosInversion"></tbody>
+          </table>
+          <div id="emptyGastosInversion" class="empty">Selecciona un piso para ver sus gastos.</div>
+        </div>
+      </div>
+    </section>
 
     <div class="grid">
       <!-- INGRESOS -->
@@ -443,11 +602,15 @@
     </div>
   </div>
 
+  <input type="file" id="inputBackup" accept="application/json" style="display:none;" />
+
   <script>
     const STORAGE_KEY = "finanzas_personales_v2";
 
     const ingresos = [];
     const gastos = [];
+    const cuentas = [];
+    const inversiones = [];
 
     let editandoIngresoId = null;
     let editandoGastoId = null;
@@ -464,8 +627,11 @@
     const resumenIngresos = document.getElementById("resumenIngresos");
     const resumenGastos = document.getElementById("resumenGastos");
     const resumenNeto = document.getElementById("resumenNeto");
+    const resumenSaldoCuentas = document.getElementById("resumenSaldoCuentas");
     const resumenAhorro = document.getElementById("resumenAhorro");
     const btnExportar = document.getElementById("btnExportar");
+    const btnGuardarBackup = document.getElementById("btnGuardarBackup");
+    const btnCargarBackup = document.getElementById("btnCargarBackup");
 
     const filtroAnio = document.getElementById("filtroAnio");
     const filtroMes = document.getElementById("filtroMes");
@@ -475,10 +641,24 @@
     const graficoGastos = document.getElementById("graficoGastos");
     const graficoIngresos = document.getElementById("graficoIngresos");
 
+    const formCuentas = document.getElementById("formCuentas");
+    const listaCuentas = document.getElementById("listaCuentas");
+    const emptyCuentas = document.getElementById("emptyCuentas");
+    const saldoCuentasActualEl = document.getElementById("saldoCuentasActual");
+
+    const formInversion = document.getElementById("formInversion");
+    const listaInversiones = document.getElementById("listaInversiones");
+    const emptyInversiones = document.getElementById("emptyInversiones");
+    const formGastoInversion = document.getElementById("formGastoInversion");
+    const selectInversionGasto = document.getElementById("inversionSeleccionadaGasto");
+    const listaGastosInversion = document.getElementById("listaGastosInversion");
+    const emptyGastosInversion = document.getElementById("emptyGastosInversion");
+
     const estadoIngreso = document.getElementById("estadoIngreso");
     const estadoGasto = document.getElementById("estadoGasto");
     const btnSubmitIngreso = document.getElementById("btnSubmitIngreso");
     const btnSubmitGasto = document.getElementById("btnSubmitGasto");
+    const inputBackup = document.getElementById("inputBackup");
 
     function generarId() {
       return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
@@ -501,7 +681,7 @@
       const categoriasIngresos = Array.from(selectIngreso.options).map(o => o.value);
       const categoriasGastos = Array.from(selectGasto.options).map(o => o.value);
 
-      const data = { ingresos, gastos, categoriasIngresos, categoriasGastos };
+      const data = { ingresos, gastos, categoriasIngresos, categoriasGastos, cuentas, inversiones };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     }
 
@@ -545,6 +725,39 @@
             if (!g.id) g.id = generarId();
             if (!Array.isArray(g.tags)) g.tags = [];
             gastos.push(g);
+          });
+        }
+        if (Array.isArray(data.cuentas)) {
+          data.cuentas.forEach(c => {
+            if (!c.id) c.id = generarId();
+            c.saldoInicial = parseFloat(c.saldoInicial || "0");
+            if (isNaN(c.saldoInicial)) c.saldoInicial = 0;
+            c.banco = c.banco || "";
+            cuentas.push(c);
+          });
+        }
+        if (Array.isArray(data.inversiones)) {
+          data.inversiones.forEach(inv => {
+            if (!inv.id) inv.id = generarId();
+            inv.direccion = inv.direccion || "";
+            inv.localidad = inv.localidad || "";
+            inv.precioCompra = parseFloat(inv.precioCompra || "0");
+            if (isNaN(inv.precioCompra)) inv.precioCompra = 0;
+            inv.capitalInvertido = parseFloat(inv.capitalInvertido || "0");
+            if (isNaN(inv.capitalInvertido)) inv.capitalInvertido = 0;
+            inv.rentaMensual = parseFloat(inv.rentaMensual || "0");
+            if (isNaN(inv.rentaMensual)) inv.rentaMensual = 0;
+            inv.ingresoConfirmado = Boolean(inv.ingresoConfirmado);
+            inv.pdfNombre = inv.pdfNombre || "";
+            if (!Array.isArray(inv.gastos)) inv.gastos = [];
+            inv.gastos.forEach(g => {
+              if (!g.id) g.id = generarId();
+              g.tipo = g.tipo || "";
+              g.periodicidad = g.periodicidad === "anual" ? "anual" : "mensual";
+              g.importe = parseFloat(g.importe || "0");
+              if (isNaN(g.importe)) g.importe = 0;
+            });
+            inversiones.push(inv);
           });
         }
       } catch (e) {
@@ -593,6 +806,18 @@
         totalIngresos > 0
           ? porcentaje.toFixed(1).replace(".", ",") + " %"
           : "0,0 %";
+
+      const saldoInicialCuentas = cuentas.reduce(
+        (acc, c) => acc + (c.saldoInicial || 0),
+        0
+      );
+      const saldoActualCuentas = saldoInicialCuentas + neto;
+      if (resumenSaldoCuentas) {
+        resumenSaldoCuentas.textContent = formatearMoneda(saldoActualCuentas);
+      }
+      if (saldoCuentasActualEl) {
+        saldoCuentasActualEl.textContent = formatearMoneda(saldoActualCuentas);
+      }
     }
 
     function agruparPorCategoria(lista) {
@@ -603,6 +828,70 @@
         mapa.set(cat, actual + (m.monto || 0));
       });
       return Array.from(mapa.entries()).sort((a, b) => b[1] - a[1]);
+    }
+
+    function calcularMetricasInversion(inv) {
+      const rentaMensual = inv.rentaMensual || 0;
+      const rentaAnualBruta = rentaMensual * 12;
+
+      const gastosAnuales = (inv.gastos || []).reduce((acc, g) => {
+        const importe = g.importe || 0;
+        const anual = g.periodicidad === "mensual" ? importe * 12 : importe;
+        return acc + anual;
+      }, 0);
+
+      const rentaAnualNeta = rentaAnualBruta - gastosAnuales;
+      const precio = inv.precioCompra || 0;
+      const capital = inv.capitalInvertido || 0;
+
+      const roi = precio > 0 ? (rentaAnualBruta / precio) * 100 : 0;
+      const roce = capital > 0 ? (rentaAnualNeta / capital) * 100 : 0;
+      const rentNeta = precio > 0 ? (rentaAnualNeta / precio) * 100 : 0;
+
+      return { rentaAnualBruta, gastosAnuales, rentaAnualNeta, roi, roce, rentNeta };
+    }
+
+    function actualizarGastosInversion() {
+      if (!listaGastosInversion || !selectInversionGasto || !emptyGastosInversion) return;
+
+      listaGastosInversion.innerHTML = "";
+      const inversionId = selectInversionGasto.value;
+      if (!inversionId) {
+        emptyGastosInversion.textContent = "Selecciona un piso para ver sus gastos.";
+        emptyGastosInversion.style.display = "block";
+        return;
+      }
+
+      const inv = inversiones.find(i => i.id === inversionId);
+      if (!inv) {
+        emptyGastosInversion.textContent = "No se ha encontrado la inversión seleccionada.";
+        emptyGastosInversion.style.display = "block";
+        return;
+      }
+
+      const gastos = inv.gastos || [];
+      if (!gastos.length) {
+        emptyGastosInversion.textContent = "Este piso no tiene gastos registrados.";
+        emptyGastosInversion.style.display = "block";
+        return;
+      }
+
+      gastos.forEach(g => {
+        const tr = document.createElement("tr");
+        const anual = g.periodicidad === "mensual" ? g.importe * 12 : g.importe;
+        tr.innerHTML = `
+          <td>${g.tipo || "-"}</td>
+          <td>${g.periodicidad === "anual" ? "Anual" : "Mensual"}</td>
+          <td style="text-align:right;">${formatearMoneda(g.importe || 0)}</td>
+          <td style="text-align:right;">${formatearMoneda(anual || 0)}</td>
+          <td style="text-align:right;">
+            <button class="btn-accion borrar borrar-gasto-inversion" data-inversion-id="${inv.id}" data-id="${g.id}">Borrar</button>
+          </td>
+        `;
+        listaGastosInversion.appendChild(tr);
+      });
+
+      emptyGastosInversion.style.display = "none";
     }
 
     function renderizarGrafico(contenedor, datos, colorInicio, colorFin) {
@@ -698,6 +987,61 @@
     function actualizarListas() {
       const ingresosFiltrados = filtrarMovimientos(ingresos);
       const gastosFiltrados = filtrarMovimientos(gastos);
+
+      // Cuentas bancarias (no dependen de filtros)
+      if (listaCuentas && emptyCuentas) {
+        listaCuentas.innerHTML = "";
+        cuentas.forEach((c) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${c.banco || "-"}</td>
+            <td style="text-align:right;">${formatearMoneda(c.saldoInicial || 0)}</td>
+            <td style="text-align:right;">
+              <button class="btn-accion borrar borrar-cuenta" data-id="${c.id}">Borrar</button>
+            </td>
+          `;
+          listaCuentas.appendChild(tr);
+        });
+        emptyCuentas.style.display = cuentas.length ? "none" : "block";
+      }
+
+      // Inversiones inmobiliarias (no dependen de filtros)
+      if (listaInversiones && emptyInversiones && selectInversionGasto) {
+        listaInversiones.innerHTML = "";
+        selectInversionGasto.innerHTML = "";
+
+        const optDefault = document.createElement("option");
+        optDefault.value = "";
+        optDefault.textContent = "Selecciona un piso";
+        selectInversionGasto.appendChild(optDefault);
+
+        inversiones.forEach((inv) => {
+          const tr = document.createElement("tr");
+          const m = calcularMetricasInversion(inv);
+          tr.innerHTML = `
+            <td>${inv.direccion || "-"}</td>
+            <td>${inv.localidad || "-"}</td>
+            <td style="text-align:right;">${formatearMoneda(inv.rentaMensual || 0)}</td>
+            <td style="text-align:right;">${m.roi.toFixed(1).replace(".", ",")} %</td>
+            <td style="text-align:right;">${m.roce.toFixed(1).replace(".", ",")} %</td>
+            <td style="text-align:right;">${m.rentNeta.toFixed(1).replace(".", ",")} %</td>
+            <td style="text-align:center;">${inv.ingresoConfirmado ? "✔" : "—"}</td>
+            <td>${inv.pdfNombre || "-"}</td>
+            <td style="text-align:right;">
+              <button class="btn-accion borrar borrar-inversion" data-id="${inv.id}">Borrar</button>
+            </td>
+          `;
+          listaInversiones.appendChild(tr);
+
+          const opt = document.createElement("option");
+          opt.value = inv.id;
+          opt.textContent = inv.direccion || inv.localidad || "Piso";
+          selectInversionGasto.appendChild(opt);
+        });
+
+        emptyInversiones.style.display = inversiones.length ? "none" : "block";
+        actualizarGastosInversion();
+      }
 
       listaIngresos.innerHTML = "";
       let totalIngresos = 0;
@@ -838,6 +1182,101 @@
       resetEdicion();
     });
 
+    if (formInversion) {
+      formInversion.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const direccion = document.getElementById("direccionInversion").value.trim();
+        const localidad = document.getElementById("localidadInversion").value.trim();
+        const fecha = document.getElementById("fechaInversion").value;
+        const precioCompra = parseFloat(document.getElementById("precioCompraInversion").value || "0");
+        const capitalInvertido = parseFloat(document.getElementById("capitalInvertidoInversion").value || "0");
+        const rentaMensual = parseFloat(document.getElementById("rentaMensualInversion").value || "0");
+        const ingresoConfirmado = document.getElementById("ingresoConfirmadoInversion").checked;
+        const inputPdf = document.getElementById("pdfIngresoInversion");
+        const pdfNombre =
+          inputPdf && inputPdf.files && inputPdf.files[0] ? inputPdf.files[0].name : "";
+
+        if (!direccion || !localidad) return;
+
+        inversiones.push({
+          id: generarId(),
+          direccion,
+          localidad,
+          fecha,
+          precioCompra: isNaN(precioCompra) ? 0 : precioCompra,
+          capitalInvertido: isNaN(capitalInvertido) ? 0 : capitalInvertido,
+          rentaMensual: isNaN(rentaMensual) ? 0 : rentaMensual,
+          ingresoConfirmado,
+          pdfNombre,
+          gastos: []
+        });
+
+        formInversion.reset();
+        if (inputPdf) inputPdf.value = "";
+        guardarEstado();
+        actualizarListas();
+      });
+    }
+
+    if (formGastoInversion && selectInversionGasto) {
+      formGastoInversion.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const inversionId = selectInversionGasto.value;
+        if (!inversionId) {
+          alert("Selecciona primero un piso.");
+          return;
+        }
+        const inv = inversiones.find(i => i.id === inversionId);
+        if (!inv) return;
+
+        const tipo = document.getElementById("tipoGastoInversion").value.trim();
+        const periodicidad = document.getElementById("periodicidadGastoInversion").value;
+        const importe = parseFloat(document.getElementById("importeGastoInversion").value || "0");
+
+        if (!tipo || !importe || importe <= 0) return;
+
+        if (!Array.isArray(inv.gastos)) inv.gastos = [];
+        inv.gastos.push({
+          id: generarId(),
+          tipo,
+          periodicidad: periodicidad === "anual" ? "anual" : "mensual",
+          importe: isNaN(importe) ? 0 : importe
+        });
+
+        formGastoInversion.reset();
+        guardarEstado();
+        actualizarListas();
+      });
+
+      if (selectInversionGasto) {
+        selectInversionGasto.addEventListener("change", () => {
+          actualizarGastosInversion();
+        });
+      }
+    }
+
+    if (formCuentas) {
+      formCuentas.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const banco = document.getElementById("bancoCuenta").value.trim();
+        const saldoInicial = parseFloat(
+          document.getElementById("saldoInicialCuenta").value || "0"
+        );
+
+        if (!banco || isNaN(saldoInicial)) return;
+
+        cuentas.push({
+          id: generarId(),
+          banco,
+          saldoInicial
+        });
+
+        formCuentas.reset();
+        guardarEstado();
+        actualizarListas();
+      });
+    }
+
     function manejarNuevaCategoria(selectId) {
       const select = document.getElementById(selectId);
       const nombre = prompt("Nombre de la nueva categoría:");
@@ -917,6 +1356,72 @@
 
     btnExportar.addEventListener("click", exportarCSV);
 
+    function descargarBackup() {
+      try {
+        guardarEstado();
+        const texto = localStorage.getItem(STORAGE_KEY) || "{}";
+        const blob = new Blob([texto], { type: "application/json;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        const fecha = new Date();
+        const yyyy = fecha.getFullYear();
+        const mm = String(fecha.getMonth() + 1).padStart(2, "0");
+        const dd = String(fecha.getDate()).padStart(2, "0");
+        a.href = url;
+        a.download = `finanzas_backup_${yyyy}-${mm}-${dd}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch (e) {
+        alert("No se ha podido crear el backup.");
+        console.error(e);
+      }
+    }
+
+    function restaurarBackupDesdeArchivo(archivo) {
+      if (!archivo) return;
+      const lector = new FileReader();
+      lector.onload = (evento) => {
+        try {
+          const texto = evento.target.result;
+          const data = JSON.parse(texto);
+          if (!data || typeof data !== "object") {
+            throw new Error("Formato de backup no válido");
+          }
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+          ingresos.length = 0;
+          gastos.length = 0;
+          cuentas.length = 0;
+          inversiones.length = 0;
+          cargarEstado();
+          actualizarFiltrosOpciones();
+          actualizarListas();
+          alert("Backup restaurado correctamente.");
+        } catch (e) {
+          alert("No se ha podido restaurar el backup. ¿Es el archivo correcto?");
+          console.error(e);
+        } finally {
+          if (inputBackup) inputBackup.value = "";
+        }
+      };
+      lector.readAsText(archivo, "utf-8");
+    }
+
+    if (btnGuardarBackup) {
+      btnGuardarBackup.addEventListener("click", descargarBackup);
+    }
+
+    if (btnCargarBackup && inputBackup) {
+      btnCargarBackup.addEventListener("click", () => {
+        inputBackup.click();
+      });
+      inputBackup.addEventListener("change", (e) => {
+        const archivo = e.target.files && e.target.files[0];
+        restaurarBackupDesdeArchivo(archivo);
+      });
+    }
+
     function agregarManejadoresAcciones() {
       document.querySelectorAll(".btn-accion.editar").forEach(btn => {
         btn.onclick = () => {
@@ -975,6 +1480,52 @@
           actualizarFiltrosOpciones();
           actualizarListas();
           resetEdicion();
+        };
+      });
+
+      document.querySelectorAll(".borrar-cuenta").forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute("data-id");
+          const ok = confirm("¿Seguro que quieres borrar esta cuenta bancaria?");
+          if (!ok) return;
+
+          const idx = cuentas.findIndex(c => c.id === id);
+          if (idx !== -1) cuentas.splice(idx, 1);
+
+          guardarEstado();
+          actualizarListas();
+        };
+      });
+
+      document.querySelectorAll(".borrar-inversion").forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute("data-id");
+          const ok = confirm("¿Seguro que quieres borrar esta inversión inmobiliaria?");
+          if (!ok) return;
+
+          const idx = inversiones.findIndex(inv => inv.id === id);
+          if (idx !== -1) inversiones.splice(idx, 1);
+
+          guardarEstado();
+          actualizarListas();
+        };
+      });
+
+      document.querySelectorAll(".borrar-gasto-inversion").forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute("data-id");
+          const inversionId = btn.getAttribute("data-inversion-id");
+          const ok = confirm("¿Seguro que quieres borrar este gasto del piso?");
+          if (!ok) return;
+
+          const inv = inversiones.find(i => i.id === inversionId);
+          if (!inv || !Array.isArray(inv.gastos)) return;
+
+          const idx = inv.gastos.findIndex(g => g.id === id);
+          if (idx !== -1) inv.gastos.splice(idx, 1);
+
+          guardarEstado();
+          actualizarListas();
         };
       });
     }
