@@ -9,14 +9,12 @@
     body { background: #0f172a; color: #e5e7eb; padding: 24px; }
     h1 { text-align: center; margin-bottom: 24px; font-size: 2rem; color: #f9fafb; }
     .container { max-width: 1200px; margin: 0 auto; }
-
-    .tabs { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; border-bottom: 1px solid #1f2937; padding-bottom: 0; }
+    .tabs { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; border-bottom: 1px solid #1f2937; }
     .tab { padding: 10px 18px; border: none; background: transparent; color: #9ca3af; cursor: pointer; font-size: 0.95rem; border-radius: 8px 8px 0 0; }
     .tab:hover { color: #e5e7eb; background: rgba(56,189,248,0.1); }
     .tab.activo { background: #1e293b; color: #38bdf8; font-weight: 600; }
     .panel { display: none; }
     .panel.activo { display: block; }
-
     .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 16px; }
     .summary-card { background: rgba(15,23,42,0.9); border-radius: 14px; padding: 12px 14px; border: 1px solid rgba(148,163,184,0.35); }
     .summary-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: .06em; color: #9ca3af; margin-bottom: 4px; }
@@ -26,14 +24,12 @@
     .summary-value.neutro { color: #e5e7eb; }
     .btn-export { margin-top: 6px; background: transparent; border: 1px solid #38bdf8; color: #e0f2fe; padding: 7px 12px; border-radius: 999px; font-size: 0.8rem; cursor: pointer; }
     .btn-export:hover { background: rgba(56,189,248,0.12); }
-
     .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 24px; align-items: flex-end; }
     .filters-group label { display: block; font-size: 0.8rem; margin-bottom: 4px; color: #9ca3af; }
     .filters select { width: 100%; padding: 7px 9px; border-radius: 8px; border: 1px solid #1f2937; background: #020617; color: #e5e7eb; font-size: 0.9rem; }
     .filters select:focus { outline: 2px solid #38bdf8; outline-offset: 1px; border-color: transparent; }
     .btn-clear-filters { border: none; border-radius: 999px; padding: 8px 14px; font-size: 0.85rem; cursor: pointer; background: #111827; color: #e5e7eb; border: 1px solid #4b5563; width: 100%; }
     .btn-clear-filters:hover { background: #020617; }
-
     .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 24px; }
     .chart-card { background: rgba(15,23,42,0.9); border-radius: 14px; padding: 12px 14px; border: 1px solid rgba(148,163,184,0.25); }
     .chart-title { font-size: 0.9rem; color: #e5e7eb; margin-bottom: 6px; font-weight: 500; }
@@ -43,7 +39,6 @@
     .chart-bar { height: 100%; border-radius: 999px; }
     .chart-value { font-size: 0.75rem; color: #e5e7eb; min-width: 70px; text-align: right; }
     .chart-empty { font-size: 0.8rem; color: #6b7280; margin-top: 4px; }
-
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
     .card { background: #020617; border-radius: 16px; padding: 20px 20px 16px; box-shadow: 0 20px 40px rgba(15,23,42,0.6); border: 1px solid rgba(148,163,184,0.25); }
     .card.ingresos { border-top: 3px solid #22c55e; }
@@ -53,7 +48,6 @@
     .card-subtitle { font-size: 0.75rem; color: #9ca3af; font-weight: 400; }
     .total { font-size: 0.9rem; opacity: 0.9; }
     .total span { font-weight: 600; }
-
     form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; margin-bottom: 14px; }
     form .full { grid-column: 1 / -1; }
     label { display: block; font-size: 0.8rem; margin-bottom: 4px; color: #9ca3af; }
@@ -61,7 +55,6 @@
     input:focus, select:focus { outline: 2px solid #38bdf8; outline-offset: 1px; border-color: transparent; }
     input[type="file"] { font-size: 0.8rem; padding: 4px; }
     input[type="checkbox"] { width: auto; }
-
     button { border: none; border-radius: 999px; padding: 8px 14px; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
     .btn-add-mov { background: linear-gradient(135deg,#22c55e,#16a34a); color: #022c22; font-weight: 600; justify-content: center; width: 100%; }
     .gastos .btn-add-mov { background: linear-gradient(135deg,#f97316,#ea580c); color: #451a03; }
@@ -69,7 +62,6 @@
     .btn-add-cat:hover { border-style: solid; color: #e5e7eb; }
     .btn-sec { background: #1e293b; color: #e5e7eb; border: 1px solid #475569; }
     .btn-sec:hover { background: #334155; }
-
     table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 6px; }
     th, td { padding: 6px 4px; text-align: left; border-bottom: 1px solid #111827; vertical-align: top; }
     th { color: #9ca3af; font-weight: 500; }
@@ -77,33 +69,27 @@
     .monto-pos { color: #4ade80; }
     .monto-neg { color: #fb923c; }
     .empty { font-size: 0.8rem; color: #6b7280; margin-top: 6px; text-align: center; }
-
     .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; }
     .tag-pill { padding: 2px 6px; border-radius: 999px; border: 1px solid #4b5563; font-size: 0.7rem; color: #e5e7eb; background: #020617; }
     .acciones { display: flex; gap: 4px; justify-content: flex-end; }
     .btn-accion { border: none; border-radius: 999px; padding: 3px 7px; font-size: 0.7rem; cursor: pointer; background: #111827; color: #e5e7eb; border: 1px solid #4b5563; }
     .btn-accion:hover { background: #020617; }
     .btn-accion.borrar { border-color: #b91c1c; color: #fecaca; }
-    .modo-edicion { font-size: 0.75rem; color: #facc15; margin-left: 2px; }
-
-    /* Inversiones inmobiliarias */
     .piso-block { background: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
-    .piso-nombre { font-weight: 600; font-size: 1rem; margin-bottom: 12px; color: #f1f5f9; }
+    .piso-nombre { font-weight: 600; font-size: 1rem; margin-bottom: 6px; color: #f1f5f9; }
+    .piso-datos { font-size: 0.8rem; color: #94a3b8; margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .piso-datos span { white-space: nowrap; }
     .meses-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; overflow-x: auto; }
     .mes-celda { min-width: 90px; padding: 6px; background: #020617; border-radius: 8px; border: 1px solid #1e293b; text-align: center; }
     .mes-celda .mes-nombre { font-size: 0.7rem; color: #94a3b8; margin-bottom: 4px; }
     .mes-celda input[type="file"] { width: 100%; font-size: 0.7rem; }
     .mes-celda .check-cobro { margin: 4px 0; }
-
-    /* Opciones inversión / Hipoteca */
     .inversion-card { background: #020617; border-radius: 16px; padding: 20px; border: 1px solid rgba(148,163,184,0.25); margin-bottom: 20px; }
     .inversion-card h3 { font-size: 1.1rem; margin-bottom: 16px; color: #e5e7eb; }
     .form-inversion { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 20px; }
     .desglose-anual { overflow-x: auto; }
     .desglose-anual table { font-size: 0.8rem; }
     .desglose-anual th { white-space: nowrap; }
-
-    /* Resumen mensual */
     .resumen-mensual { margin-top: 32px; padding-top: 24px; border-top: 1px solid #334155; }
     .resumen-mensual h2 { font-size: 1.4rem; margin-bottom: 16px; color: #f1f5f9; }
     .resumen-anio-select { margin-bottom: 16px; max-width: 200px; }
@@ -113,231 +99,98 @@
     .mes-resumen-card .gastos-mes { margin-top: 6px; font-size: 0.85rem; }
     .mes-resumen-card .gasto-cat { display: flex; justify-content: space-between; color: #94a3b8; font-size: 0.8rem; padding: 2px 0; }
     .mes-resumen-card .ahorro-pct { margin-top: 8px; font-weight: 600; color: #a78bfa; }
-
-    @media (max-width: 640px) {
-      body { padding: 16px; }
-      form { grid-template-columns: 1fr; }
-      .chart-label { width: 35%; }
-      .meses-grid { grid-template-columns: repeat(6, 1fr); }
-    }
+    @media (max-width: 640px) { body { padding: 16px; } form { grid-template-columns: 1fr; } .meses-grid { grid-template-columns: repeat(6, 1fr); } }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Panel de finanzas personales</h1>
-
     <div class="tabs">
       <button type="button" class="tab activo" data-panel="movimientos">Movimientos</button>
       <button type="button" class="tab" data-panel="inmobiliarias">Inversiones inmobiliarias</button>
       <button type="button" class="tab" data-panel="inversion">Opciones de inversión</button>
     </div>
 
-    <!-- Panel Movimientos (ingresos y gastos) -->
     <div id="panel-movimientos" class="panel activo">
       <div class="summary">
-        <div class="summary-card">
-          <div class="summary-label">Total ingresos</div>
-          <div id="resumenIngresos" class="summary-value pos">0,00 €</div>
-        </div>
-        <div class="summary-card">
-          <div class="summary-label">Total gastos</div>
-          <div id="resumenGastos" class="summary-value neg">0,00 €</div>
-        </div>
-        <div class="summary-card">
-          <div class="summary-label">Total neto</div>
-          <div id="resumenNeto" class="summary-value neutro">0,00 €</div>
-        </div>
-        <div class="summary-card">
-          <div class="summary-label">% ahorro</div>
-          <div id="resumenAhorro" class="summary-value pos">0,0 %</div>
-          <button id="btnExportar" class="btn-export">Exportar datos (CSV)</button>
-        </div>
+        <div class="summary-card"><div class="summary-label">Total ingresos</div><div id="resumenIngresos" class="summary-value pos">0,00 €</div></div>
+        <div class="summary-card"><div class="summary-label">Total gastos</div><div id="resumenGastos" class="summary-value neg">0,00 €</div></div>
+        <div class="summary-card"><div class="summary-label">Total neto</div><div id="resumenNeto" class="summary-value neutro">0,00 €</div></div>
+        <div class="summary-card"><div class="summary-label">% ahorro</div><div id="resumenAhorro" class="summary-value pos">0,0 %</div><button id="btnExportar" class="btn-export">Exportar datos (CSV)</button></div>
       </div>
-
       <div class="filters">
-        <div class="filters-group">
-          <label for="filtroAnio">Año</label>
-          <select id="filtroAnio"><option value="all">Todos los años</option></select>
-        </div>
-        <div class="filters-group">
-          <label for="filtroMes">Mes</label>
-          <select id="filtroMes">
-            <option value="all">Todos los meses</option>
-            <option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option>
-            <option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option>
-            <option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option>
-            <option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option>
-          </select>
-        </div>
-        <div class="filters-group">
-          <label for="filtroTag">Etiqueta</label>
-          <select id="filtroTag"><option value="all">Todas las etiquetas</option></select>
-        </div>
-        <div class="filters-group">
-          <button id="btnLimpiarFiltros" class="btn-clear-filters">Quitar filtros</button>
-        </div>
+        <div class="filters-group"><label for="filtroAnio">Año</label><select id="filtroAnio"><option value="all">Todos los años</option></select></div>
+        <div class="filters-group"><label for="filtroMes">Mes</label><select id="filtroMes"><option value="all">Todos</option><option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option><option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option><option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option><option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option></select></div>
+        <div class="filters-group"><label for="filtroTag">Etiqueta</label><select id="filtroTag"><option value="all">Todas</option></select></div>
+        <div class="filters-group"><button id="btnLimpiarFiltros" class="btn-clear-filters">Quitar filtros</button></div>
       </div>
-
       <div class="charts">
-        <div class="chart-card">
-          <div class="chart-title">Gastos por categoría (filtrados)</div>
-          <div id="graficoGastos"></div>
-        </div>
-        <div class="chart-card">
-          <div class="chart-title">Ingresos por categoría (filtrados)</div>
-          <div id="graficoIngresos"></div>
-        </div>
+        <div class="chart-card"><div class="chart-title">Gastos por categoría</div><div id="graficoGastos"></div></div>
+        <div class="chart-card"><div class="chart-title">Ingresos por categoría</div><div id="graficoIngresos"></div></div>
       </div>
-
       <div class="grid">
         <section class="card ingresos">
-          <div class="card-header">
-            <div class="card-title">
-              <span>Ingresos</span>
-              <span class="card-subtitle" id="estadoIngreso"></span>
-            </div>
-            <div class="total">Total: <span id="totalIngresos">0,00 €</span></div>
-          </div>
+          <div class="card-header"><div class="card-title"><span>Ingresos</span><span class="card-subtitle" id="estadoIngreso"></span></div><div class="total">Total: <span id="totalIngresos">0,00 €</span></div></div>
           <form id="formIngresos">
             <div><label for="fechaIngreso">Fecha</label><input type="date" id="fechaIngreso" required /></div>
-            <div>
-              <label for="categoriaIngreso">Categoría</label>
-              <div style="display:flex; gap:8px; align-items:center;">
-                <select id="categoriaIngreso" required style="flex:1;">
-                  <option value="Alquiler">Alquiler</option>
-                  <option value="Nómina">Nómina</option>
-                  <option value="Inversiones">Inversiones</option>
-                </select>
-                <button type="button" class="btn-add-cat" id="btnAddCatIngreso">+ cat.</button>
-              </div>
-            </div>
+            <div><label for="categoriaIngreso">Categoría</label><div style="display:flex;gap:8px;align-items:center;"><select id="categoriaIngreso" required style="flex:1;"><option value="Alquiler">Alquiler</option><option value="Nómina">Nómina</option><option value="Inversiones">Inversiones</option></select><button type="button" class="btn-add-cat" id="btnAddCatIngreso">+ cat.</button></div></div>
             <div><label for="montoIngreso">Monto (€)</label><input type="number" id="montoIngreso" required min="0" step="0.01" placeholder="0,00" /></div>
-            <div><label for="descripcionIngreso">Descripción</label><input type="text" id="descripcionIngreso" placeholder="Ej: salario, alquiler piso..." /></div>
-            <div class="full"><label for="tagsIngreso">Etiquetas (separadas por comas)</label><input type="text" id="tagsIngreso" placeholder="Ej: trabajo, piso, proyecto" /></div>
+            <div><label for="descripcionIngreso">Descripción</label><input type="text" id="descripcionIngreso" placeholder="Ej: salario, alquiler..." /></div>
+            <div class="full"><label for="tagsIngreso">Etiquetas (separadas por comas)</label><input type="text" id="tagsIngreso" placeholder="Ej: trabajo, piso" /></div>
             <div class="full"><button class="btn-add-mov" type="submit" id="btnSubmitIngreso">Añadir ingreso</button></div>
           </form>
-          <div id="listaIngresosWrapper">
-            <table>
-              <thead><tr><th>Fecha</th><th>Categoría</th><th>Descripción / etiquetas</th><th style="text-align:right;">Monto</th><th style="text-align:right;">Acciones</th></tr></thead>
-              <tbody id="listaIngresos"></tbody>
-            </table>
-            <div id="emptyIngresos" class="empty">Todavía no has añadido ingresos.</div>
-          </div>
+          <div id="listaIngresosWrapper"><table><thead><tr><th>Fecha</th><th>Categoría</th><th>Descripción / etiquetas</th><th style="text-align:right;">Monto</th><th style="text-align:right;">Acciones</th></tr></thead><tbody id="listaIngresos"></tbody></table><div id="emptyIngresos" class="empty">Sin ingresos.</div></div>
         </section>
         <section class="card gastos">
-          <div class="card-header">
-            <div class="card-title">
-              <span>Gastos</span>
-              <span class="card-subtitle" id="estadoGasto"></span>
-            </div>
-            <div class="total">Total: <span id="totalGastos">0,00 €</span></div>
-          </div>
+          <div class="card-header"><div class="card-title"><span>Gastos</span><span class="card-subtitle" id="estadoGasto"></span></div><div class="total">Total: <span id="totalGastos">0,00 €</span></div></div>
           <form id="formGastos">
             <div><label for="fechaGasto">Fecha</label><input type="date" id="fechaGasto" required /></div>
-            <div>
-              <label for="categoriaGasto">Categoría</label>
-              <div style="display:flex; gap:8px; align-items:center;">
-                <select id="categoriaGasto" required style="flex:1;">
-                  <option value="Combustible">Combustible</option>
-                  <option value="Traspasos">Traspasos</option>
-                  <option value="Hipotecas">Hipotecas</option>
-                  <option value="Varios">Varios</option>
-                  <option value="Comunidad">Comunidad</option>
-                  <option value="Seguros">Seguros</option>
-                </select>
-                <button type="button" class="btn-add-cat" id="btnAddCatGasto">+ cat.</button>
-              </div>
-            </div>
+            <div><label for="categoriaGasto">Categoría</label><div style="display:flex;gap:8px;align-items:center;"><select id="categoriaGasto" required style="flex:1;"><option value="Combustible">Combustible</option><option value="Traspasos">Traspasos</option><option value="Hipotecas">Hipotecas</option><option value="Varios">Varios</option><option value="Comunidad">Comunidad</option><option value="Seguros">Seguros</option></select><button type="button" class="btn-add-cat" id="btnAddCatGasto">+ cat.</button></div></div>
             <div><label for="montoGasto">Monto (€)</label><input type="number" id="montoGasto" required min="0" step="0.01" placeholder="0,00" /></div>
             <div><label for="descripcionGasto">Descripción</label><input type="text" id="descripcionGasto" placeholder="Ej: gasolina, hipoteca..." /></div>
-            <div class="full"><label for="tagsGasto">Etiquetas (separadas por comas)</label><input type="text" id="tagsGasto" placeholder="Ej: coche, casa, ocio" /></div>
+            <div class="full"><label for="tagsGasto">Etiquetas (separadas por comas)</label><input type="text" id="tagsGasto" placeholder="Ej: coche, casa" /></div>
             <div class="full"><button class="btn-add-mov" type="submit" id="btnSubmitGasto">Añadir gasto</button></div>
           </form>
-          <div id="listaGastosWrapper">
-            <table>
-              <thead><tr><th>Fecha</th><th>Categoría</th><th>Descripción / etiquetas</th><th style="text-align:right;">Monto</th><th style="text-align:right;">Acciones</th></tr></thead>
-              <tbody id="listaGastos"></tbody>
-            </table>
-            <div id="emptyGastos" class="empty">Todavía no has añadido gastos.</div>
-          </div>
+          <div id="listaGastosWrapper"><table><thead><tr><th>Fecha</th><th>Categoría</th><th>Descripción / etiquetas</th><th style="text-align:right;">Monto</th><th style="text-align:right;">Acciones</th></tr></thead><tbody id="listaGastos"></tbody></table><div id="emptyGastos" class="empty">Sin gastos.</div></div>
         </section>
       </div>
     </div>
 
-    <!-- Panel Inversiones inmobiliarias -->
     <div id="panel-inmobiliarias" class="panel">
-      <div class="filters-group" style="margin-bottom: 16px;">
-        <label for="anioPisos">Año para cobros de renta</label>
-        <select id="anioPisos"></select>
-      </div>
+      <div class="filters-group" style="margin-bottom: 16px;"><label for="anioPisos">Año para cobros de renta</label><select id="anioPisos"></select></div>
       <div class="card" style="margin-bottom: 20px;">
         <div class="card-header"><div class="card-title">Añadir piso / inversión inmobiliaria</div></div>
         <form id="formPiso">
-          <div class="full">
-            <label for="nombrePiso">Nombre o dirección del piso</label>
-            <input type="text" id="nombrePiso" placeholder="Ej: Piso Calle Mayor 5" required />
-          </div>
-          <div>
-            <label for="rentaPiso">Renta mensual (€)</label>
-            <input type="number" id="rentaPiso" min="0" step="0.01" placeholder="0" />
-          </div>
-          <div class="full">
-            <button type="submit" class="btn-add-mov">Añadir piso</button>
-          </div>
+          <div class="full"><label for="nombrePiso">Nombre o dirección del piso</label><input type="text" id="nombrePiso" placeholder="Ej: Piso Calle Mayor 5" required /></div>
+          <div><label for="rentaPiso">Renta mensual (€)</label><input type="number" id="rentaPiso" min="0" step="0.01" placeholder="0" /></div>
+          <div><label for="totalCompraPiso">Total compra del piso (€)</label><input type="number" id="totalCompraPiso" min="0" step="100" placeholder="0" /></div>
+          <div><label for="capitalInvertidoPiso">Capital invertido (€)</label><input type="number" id="capitalInvertidoPiso" min="0" step="100" placeholder="0" /></div>
+          <div><label for="roiPiso">ROI (%)</label><input type="number" id="roiPiso" step="0.01" placeholder="0" /></div>
+          <div><label for="rocePiso">ROCE (%)</label><input type="number" id="rocePiso" step="0.01" placeholder="0" /></div>
+          <div class="full"><button type="submit" class="btn-add-mov">Añadir piso</button></div>
         </form>
       </div>
       <div id="listaPisos"></div>
     </div>
 
-    <!-- Panel Opciones de inversión (hipoteca / préstamo) -->
     <div id="panel-inversion" class="panel">
       <div class="inversion-card">
         <h3>Datos del préstamo / hipoteca</h3>
         <div class="form-inversion">
-          <div>
-            <label>TAE banco (%)</label>
-            <input type="number" id="inversionTAE" min="0" step="0.01" placeholder="2.5" />
-          </div>
-          <div>
-            <label>Años</label>
-            <input type="number" id="inversionAnios" min="1" max="40" placeholder="25" />
-          </div>
-          <div>
-            <label>Préstamo solicitado (€)</label>
-            <input type="number" id="inversionPrestamo" min="0" step="100" placeholder="150000" />
-          </div>
-          <div>
-            <label>Cuota mensual (€)</label>
-            <input type="number" id="inversionCuota" min="0" step="0.01" placeholder="650" />
-          </div>
-          <div>
-            <button type="button" class="btn-sec" id="btnGuardarInversion">Guardar datos</button>
-          </div>
+          <div><label>TAE banco (%)</label><input type="number" id="inversionTAE" min="0" step="0.01" placeholder="2.5" /></div>
+          <div><label>Años</label><input type="number" id="inversionAnios" min="1" max="40" placeholder="25" /></div>
+          <div><label>Préstamo solicitado (€)</label><input type="number" id="inversionPrestamo" min="0" step="100" placeholder="150000" /></div>
+          <div><label>Cuota mensual (€)</label><input type="number" id="inversionCuota" min="0" step="0.01" placeholder="650" /></div>
+          <div><button type="button" class="btn-sec" id="btnGuardarInversion">Guardar datos</button></div>
         </div>
-        <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px;">Desglose por año: indica cuánto de la cuota mensual corresponde a intereses y cuánto a amortización (solo se actualiza una vez al año).</p>
-        <div class="desglose-anual">
-          <table>
-            <thead>
-              <tr>
-                <th>Año</th>
-                <th>Intereses (€/mes)</th>
-                <th>Amortización (€/mes)</th>
-                <th>Capital pendiente (€)</th>
-              </tr>
-            </thead>
-            <tbody id="desgloseAnualBody"></tbody>
-          </table>
-        </div>
+        <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px;">Desglose por año: intereses y amortización (€/mes). Se actualiza una vez al año.</p>
+        <div class="desglose-anual"><table><thead><tr><th>Año</th><th>Intereses (€/mes)</th><th>Amortización (€/mes)</th><th>Capital pendiente (€)</th></tr></thead><tbody id="desgloseAnualBody"></tbody></table></div>
       </div>
     </div>
 
-    <!-- Resumen rápido por mes (al final de todo) -->
     <section class="resumen-mensual">
       <h2>Resumen por mes del año</h2>
-      <div class="filters-group resumen-anio-select">
-        <label for="resumenAnio">Año a resumir</label>
-        <select id="resumenAnio" class="resumen-anio-select"></select>
-      </div>
+      <div class="filters-group resumen-anio-select"><label for="resumenAnio">Año a resumir</label><select id="resumenAnio" class="resumen-anio-select"></select></div>
       <div id="resumenMensualContenedor"></div>
     </section>
   </div>
@@ -345,667 +198,230 @@
   <script>
     const STORAGE_KEY = "finanzas_personales_v3";
     const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-
-    let ingresos = [];
-    let gastos = [];
-    let pisos = [];
+    let ingresos = [], gastos = [], pisos = [];
     let inversion = { tae: null, anios: null, prestamo: null, cuota: null, desgloseAnual: [] };
-    let editandoIngresoId = null;
-    let editandoGastoId = null;
+    let editandoIngresoId = null, editandoGastoId = null;
 
-    const formIngresos = document.getElementById("formIngresos");
-    const formGastos = document.getElementById("formGastos");
-    const listaIngresos = document.getElementById("listaIngresos");
-    const listaGastos = document.getElementById("listaGastos");
-    const totalIngresosEl = document.getElementById("totalIngresos");
-    const totalGastosEl = document.getElementById("totalGastos");
-    const emptyIngresos = document.getElementById("emptyIngresos");
-    const emptyGastos = document.getElementById("emptyGastos");
-    const resumenIngresos = document.getElementById("resumenIngresos");
-    const resumenGastos = document.getElementById("resumenGastos");
-    const resumenNeto = document.getElementById("resumenNeto");
-    const resumenAhorro = document.getElementById("resumenAhorro");
-    const btnExportar = document.getElementById("btnExportar");
-    const filtroAnio = document.getElementById("filtroAnio");
-    const filtroMes = document.getElementById("filtroMes");
-    const filtroTag = document.getElementById("filtroTag");
-    const btnLimpiarFiltros = document.getElementById("btnLimpiarFiltros");
-    const graficoGastos = document.getElementById("graficoGastos");
-    const graficoIngresos = document.getElementById("graficoIngresos");
-    const estadoIngreso = document.getElementById("estadoIngreso");
-    const estadoGasto = document.getElementById("estadoGasto");
-    const btnSubmitIngreso = document.getElementById("btnSubmitIngreso");
-    const btnSubmitGasto = document.getElementById("btnSubmitGasto");
-
-    function generarId() {
-      return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-    }
-    function formatearMoneda(valor) {
-      return valor.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
-    }
-    function parsearFecha(fechaStr) {
-      if (!fechaStr) return null;
-      const d = new Date(fechaStr);
-      if (isNaN(d.getTime())) return null;
-      return d;
-    }
+    function generarId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+    function formatearMoneda(v) { return (v ?? 0).toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €"; }
+    function parsearFecha(s) { if (!s) return null; const d = new Date(s); return isNaN(d.getTime()) ? null : d; }
 
     function guardarEstado() {
-      const selectIngreso = document.getElementById("categoriaIngreso");
-      const selectGasto = document.getElementById("categoriaGasto");
-      const categoriasIngresos = Array.from(selectIngreso.options).map(o => o.value);
-      const categoriasGastos = Array.from(selectGasto.options).map(o => o.value);
-      const data = { ingresos, gastos, categoriasIngresos, categoriasGastos, pisos, inversion };
+      const data = { ingresos, gastos, categoriasIngresos: Array.from(document.getElementById("categoriaIngreso").options).map(o => o.value), categoriasGastos: Array.from(document.getElementById("categoriaGasto").options).map(o => o.value), pisos, inversion };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     }
 
     function cargarEstado() {
-      const texto = localStorage.getItem(STORAGE_KEY);
-      if (!texto) return;
       try {
-        const data = JSON.parse(texto);
-        if (Array.isArray(data.categoriasIngresos)) {
-          const selectIngreso = document.getElementById("categoriaIngreso");
-          selectIngreso.innerHTML = "";
-          data.categoriasIngresos.forEach(cat => {
-            const opt = document.createElement("option");
-            opt.value = cat;
-            opt.textContent = cat;
-            selectIngreso.appendChild(opt);
-          });
-        }
-        if (Array.isArray(data.categoriasGastos)) {
-          const selectGasto = document.getElementById("categoriaGasto");
-          selectGasto.innerHTML = "";
-          data.categoriasGastos.forEach(cat => {
-            const opt = document.createElement("option");
-            opt.value = cat;
-            opt.textContent = cat;
-            selectGasto.appendChild(opt);
-          });
-        }
-        if (Array.isArray(data.ingresos)) {
-          data.ingresos.forEach(i => {
-            if (!i.id) i.id = generarId();
-            if (!Array.isArray(i.tags)) i.tags = [];
-            ingresos.push(i);
-          });
-        }
-        if (Array.isArray(data.gastos)) {
-          data.gastos.forEach(g => {
-            if (!g.id) g.id = generarId();
-            if (!Array.isArray(g.tags)) g.tags = [];
-            gastos.push(g);
-          });
-        }
-        if (Array.isArray(data.pisos)) {
-          data.pisos.forEach(p => {
-            if (!p.id) p.id = generarId();
-            if (!p.meses) p.meses = {};
-            pisos.push(p);
-          });
-        }
-        if (data.inversion && typeof data.inversion === 'object') {
-          inversion = { ...inversion, ...data.inversion };
-          if (!Array.isArray(inversion.desgloseAnual)) inversion.desgloseAnual = [];
-        }
-      } catch (e) {
-        console.error("Error al cargar datos guardados", e);
-      }
+        const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+        if (Array.isArray(data.categoriasIngresos)) { const s = document.getElementById("categoriaIngreso"); s.innerHTML = ""; data.categoriasIngresos.forEach(c => { const o = document.createElement("option"); o.value = c; o.textContent = c; s.appendChild(o); }); }
+        if (Array.isArray(data.categoriasGastos)) { const s = document.getElementById("categoriaGasto"); s.innerHTML = ""; data.categoriasGastos.forEach(c => { const o = document.createElement("option"); o.value = c; o.textContent = c; s.appendChild(o); }); }
+        if (Array.isArray(data.ingresos)) data.ingresos.forEach(i => { if (!i.id) i.id = generarId(); if (!Array.isArray(i.tags)) i.tags = []; ingresos.push(i); });
+        if (Array.isArray(data.gastos)) data.gastos.forEach(g => { if (!g.id) g.id = generarId(); if (!Array.isArray(g.tags)) g.tags = []; gastos.push(g); });
+        if (Array.isArray(data.pisos)) data.pisos.forEach(p => { if (!p.id) p.id = generarId(); if (!p.meses) p.meses = {}; pisos.push(p); });
+        if (data.inversion && typeof data.inversion === "object") { inversion = { ...inversion, ...data.inversion }; if (!Array.isArray(inversion.desgloseAnual)) inversion.desgloseAnual = []; }
+      } catch (e) { console.error(e); }
     }
 
-    function obtenerFiltros() {
-      return { anio: filtroAnio.value, mes: filtroMes.value, tag: filtroTag.value };
-    }
+    function obtenerFiltros() { return { anio: document.getElementById("filtroAnio").value, mes: document.getElementById("filtroMes").value, tag: document.getElementById("filtroTag").value }; }
     function filtrarMovimientos(lista) {
       const { anio, mes, tag } = obtenerFiltros();
       return lista.filter(m => {
         const d = parsearFecha(m.fecha);
-        if (d) {
-          const year = d.getFullYear().toString();
-          const month = (d.getMonth() + 1).toString();
-          if (anio !== "all" && year !== anio) return false;
-          if (mes !== "all" && month !== mes) return false;
-        } else {
-          if (anio !== "all" || mes !== "all") return false;
-        }
-        if (tag !== "all") {
-          const tags = Array.isArray(m.tags) ? m.tags : [];
-          if (!tags.some(t => t.toLowerCase() === tag.toLowerCase())) return false;
-        }
+        if (d) { if (anio !== "all" && d.getFullYear().toString() !== anio) return false; if (mes !== "all" && (d.getMonth() + 1).toString() !== mes) return false; } else { if (anio !== "all" || mes !== "all") return false; }
+        if (tag !== "all" && !(Array.isArray(m.tags) ? m.tags : []).some(t => t.toLowerCase() === tag.toLowerCase())) return false;
         return true;
       });
     }
-    function actualizarResumen(totalIngresos, totalGastos) {
-      const neto = totalIngresos - totalGastos;
-      const porcentaje = totalIngresos > 0 ? (neto / totalIngresos) * 100 : 0;
-      resumenIngresos.textContent = formatearMoneda(totalIngresos);
-      resumenGastos.textContent = formatearMoneda(totalGastos);
-      resumenNeto.textContent = formatearMoneda(neto);
-      resumenAhorro.textContent = totalIngresos > 0 ? porcentaje.toFixed(1).replace(".", ",") + " %" : "0,0 %";
-    }
-    function agruparPorCategoria(lista) {
-      const mapa = new Map();
-      lista.forEach(m => {
-        const cat = m.categoria || "Sin categoría";
-        mapa.set(cat, (mapa.get(cat) || 0) + (m.monto || 0));
-      });
-      return Array.from(mapa.entries()).sort((a, b) => b[1] - a[1]);
-    }
-    function renderizarGrafico(contenedor, datos, colorInicio, colorFin) {
-      contenedor.innerHTML = "";
-      if (!datos.length) {
-        const div = document.createElement("div");
-        div.className = "chart-empty";
-        div.textContent = "Sin datos en el rango seleccionado.";
-        contenedor.appendChild(div);
-        return;
-      }
-      const maxValor = Math.max(...datos.map(d => d[1])) || 1;
-      datos.forEach(([categoria, monto]) => {
-        const fila = document.createElement("div");
-        fila.className = "chart-bar-row";
-        const label = document.createElement("div");
-        label.className = "chart-label";
-        label.textContent = categoria;
-        const wrap = document.createElement("div");
-        wrap.className = "chart-bar-wrap";
-        const bar = document.createElement("div");
-        bar.className = "chart-bar";
-        bar.style.width = ((monto / maxValor) * 100).toFixed(1) + "%";
-        bar.style.background = `linear-gradient(90deg, ${colorInicio}, ${colorFin})`;
-        wrap.appendChild(bar);
-        const valor = document.createElement("div");
-        valor.className = "chart-value";
-        valor.textContent = formatearMoneda(monto);
-        fila.appendChild(label);
-        fila.appendChild(wrap);
-        fila.appendChild(valor);
-        contenedor.appendChild(fila);
-      });
-    }
-    function actualizarFiltrosOpciones() {
-      const años = new Set();
-      const tags = new Set();
-      [...ingresos, ...gastos].forEach(m => {
-        const d = parsearFecha(m.fecha);
-        if (d) años.add(d.getFullYear().toString());
-        (m.tags || []).forEach(t => { if (t) tags.add(t); });
-      });
-      const anioActual = filtroAnio.value;
-      filtroAnio.innerHTML = "";
-      const optAll = document.createElement("option");
-      optAll.value = "all";
-      optAll.textContent = "Todos los años";
-      filtroAnio.appendChild(optAll);
-      Array.from(años).sort().forEach(a => {
-        const opt = document.createElement("option");
-        opt.value = a;
-        opt.textContent = a;
-        filtroAnio.appendChild(opt);
-      });
-      if (Array.from(años).includes(anioActual)) filtroAnio.value = anioActual;
-      else filtroAnio.value = "all";
 
-      const tagActual = filtroTag.value;
-      filtroTag.innerHTML = "";
-      const optAllTag = document.createElement("option");
-      optAllTag.value = "all";
-      optAllTag.textContent = "Todas las etiquetas";
-      filtroTag.appendChild(optAllTag);
-      Array.from(tags).sort((a, b) => a.localeCompare(b, "es")).forEach(t => {
-        const opt = document.createElement("option");
-        opt.value = t;
-        opt.textContent = t;
-        filtroTag.appendChild(opt);
+    function actualizarResumen(tIng, tGas) {
+      const neto = tIng - tGas, pct = tIng > 0 ? (neto / tIng) * 100 : 0;
+      document.getElementById("resumenIngresos").textContent = formatearMoneda(tIng);
+      document.getElementById("resumenGastos").textContent = formatearMoneda(tGas);
+      document.getElementById("resumenNeto").textContent = formatearMoneda(neto);
+      document.getElementById("resumenAhorro").textContent = (tIng > 0 ? pct.toFixed(1).replace(".", ",") : "0,0") + " %";
+    }
+
+    function agruparPorCategoria(lista) {
+      const m = new Map();
+      lista.forEach(x => { const c = x.categoria || "Sin categoría"; m.set(c, (m.get(c) || 0) + (x.monto || 0)); });
+      return Array.from(m.entries()).sort((a, b) => b[1] - a[1]);
+    }
+
+    function renderizarGrafico(cont, datos, c1, c2) {
+      cont.innerHTML = "";
+      if (!datos.length) { const d = document.createElement("div"); d.className = "chart-empty"; d.textContent = "Sin datos."; cont.appendChild(d); return; }
+      const max = Math.max(...datos.map(x => x[1])) || 1;
+      datos.forEach(([cat, val]) => {
+        const row = document.createElement("div"); row.className = "chart-bar-row";
+        const lbl = document.createElement("div"); lbl.className = "chart-label"; lbl.textContent = cat;
+        const wrap = document.createElement("div"); wrap.className = "chart-bar-wrap";
+        const bar = document.createElement("div"); bar.className = "chart-bar"; bar.style.width = ((val / max) * 100).toFixed(1) + "%"; bar.style.background = "linear-gradient(90deg," + c1 + "," + c2 + ")";
+        wrap.appendChild(bar);
+        const v = document.createElement("div"); v.className = "chart-value"; v.textContent = formatearMoneda(val);
+        row.appendChild(lbl); row.appendChild(wrap); row.appendChild(v); cont.appendChild(row);
       });
-      if (Array.from(tags).includes(tagActual)) filtroTag.value = tagActual;
-      else filtroTag.value = "all";
     }
-    function parsearTagsDesdeInput(valor) {
-      if (!valor) return [];
-      return valor.split(",").map(t => t.trim()).filter(Boolean);
-    }
-    function resetEdicion() {
-      editandoIngresoId = null;
-      editandoGastoId = null;
-      estadoIngreso.textContent = "";
-      estadoGasto.textContent = "";
-      btnSubmitIngreso.textContent = "Añadir ingreso";
-      btnSubmitGasto.textContent = "Añadir gasto";
-      formIngresos.reset();
-      formGastos.reset();
+
+    function actualizarFiltrosOpciones() {
+      const años = new Set(), tags = new Set();
+      [...ingresos, ...gastos].forEach(m => { const d = parsearFecha(m.fecha); if (d) años.add(d.getFullYear().toString()); (m.tags || []).forEach(t => { if (t) tags.add(t); }); });
+      const fa = document.getElementById("filtroAnio"), ft = document.getElementById("filtroTag");
+      const va = fa.value, vt = ft.value;
+      fa.innerHTML = ""; const oa = document.createElement("option"); oa.value = "all"; oa.textContent = "Todos los años"; fa.appendChild(oa);
+      Array.from(años).sort().forEach(a => { const o = document.createElement("option"); o.value = a; o.textContent = a; fa.appendChild(o); });
+      fa.value = años.has(va) ? va : "all";
+      ft.innerHTML = ""; const ot = document.createElement("option"); ot.value = "all"; ot.textContent = "Todas las etiquetas"; ft.appendChild(ot);
+      Array.from(tags).sort((a,b)=>a.localeCompare(b,"es")).forEach(t => { const o = document.createElement("option"); o.value = t; o.textContent = t; ft.appendChild(o); });
+      ft.value = tags.has(vt) ? vt : "all";
     }
 
     function actualizarListas() {
-      const ingresosFiltrados = filtrarMovimientos(ingresos);
-      const gastosFiltrados = filtrarMovimientos(gastos);
-      listaIngresos.innerHTML = "";
-      let totalIngresos = 0;
-      ingresosFiltrados.forEach(ing => {
-        totalIngresos += ing.monto;
-        const tags = Array.isArray(ing.tags) ? ing.tags : [];
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${ing.fecha || "-"}</td>
-          <td>${ing.categoria}</td>
-          <td><div>${ing.descripcion || "-"}</div>${tags.length ? `<div class="tags">${tags.map(t => `<span class="tag-pill">${t}</span>`).join("")}</div>` : ""}</td>
-          <td style="text-align:right;" class="monto-pos">${formatearMoneda(ing.monto)}</td>
-          <td style="text-align:right;"><div class="acciones"><button class="btn-accion editar" data-id="${ing.id}" data-tipo="ingreso">Editar</button><button class="btn-accion borrar" data-id="${ing.id}" data-tipo="ingreso">Borrar</button></div></td>`;
-        listaIngresos.appendChild(tr);
-      });
-      totalIngresosEl.textContent = formatearMoneda(totalIngresos);
-      emptyIngresos.style.display = ingresosFiltrados.length ? "none" : "block";
-
-      listaGastos.innerHTML = "";
-      let totalGastos = 0;
-      gastosFiltrados.forEach(g => {
-        totalGastos += g.monto;
-        const tags = Array.isArray(g.tags) ? g.tags : [];
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${g.fecha || "-"}</td>
-          <td>${g.categoria}</td>
-          <td><div>${g.descripcion || "-"}</div>${tags.length ? `<div class="tags">${tags.map(t => `<span class="tag-pill">${t}</span>`).join("")}</div>` : ""}</td>
-          <td style="text-align:right;" class="monto-neg">-${formatearMoneda(g.monto)}</td>
-          <td style="text-align:right;"><div class="acciones"><button class="btn-accion editar" data-id="${g.id}" data-tipo="gasto">Editar</button><button class="btn-accion borrar" data-id="${g.id}" data-tipo="gasto">Borrar</button></div></td>`;
-        listaGastos.appendChild(tr);
-      });
-      totalGastosEl.textContent = formatearMoneda(totalGastos);
-      emptyGastos.style.display = gastosFiltrados.length ? "none" : "block";
-      actualizarResumen(totalIngresos, totalGastos);
-      renderizarGrafico(graficoGastos, agruparPorCategoria(gastosFiltrados), "#f97316", "#ea580c");
-      renderizarGrafico(graficoIngresos, agruparPorCategoria(ingresosFiltrados), "#22c55e", "#16a34a");
-      agregarManejadoresAcciones();
+      const ingF = filtrarMovimientos(ingresos), gasF = filtrarMovimientos(gastos);
+      let tIng = 0, tGas = 0;
+      const li = document.getElementById("listaIngresos"), lg = document.getElementById("listaGastos");
+      li.innerHTML = ""; ingF.forEach(ing => { tIng += ing.monto; const tags = Array.isArray(ing.tags) ? ing.tags : []; li.innerHTML += "<tr><td>" + (ing.fecha || "-") + "</td><td>" + ing.categoria + "</td><td><div>" + (ing.descripcion || "-") + "</div>" + (tags.length ? "<div class=\"tags\">" + tags.map(t => "<span class=\"tag-pill\">" + t + "</span>").join("") + "</div>" : "") + "</td><td style=\"text-align:right\" class=\"monto-pos\">" + formatearMoneda(ing.monto) + "</td><td style=\"text-align:right\"><div class=\"acciones\"><button class=\"btn-accion editar\" data-id=\"" + ing.id + "\" data-tipo=\"ingreso\">Editar</button><button class=\"btn-accion borrar\" data-id=\"" + ing.id + "\" data-tipo=\"ingreso\">Borrar</button></div></td></tr>"; });
+      lg.innerHTML = ""; gasF.forEach(g => { tGas += g.monto; const tags = Array.isArray(g.tags) ? g.tags : []; lg.innerHTML += "<tr><td>" + (g.fecha || "-") + "</td><td>" + g.categoria + "</td><td><div>" + (g.descripcion || "-") + "</div>" + (tags.length ? "<div class=\"tags\">" + tags.map(t => "<span class=\"tag-pill\">" + t + "</span>").join("") + "</div>" : "") + "</td><td style=\"text-align:right\" class=\"monto-neg\">-" + formatearMoneda(g.monto) + "</td><td style=\"text-align:right\"><div class=\"acciones\"><button class=\"btn-accion editar\" data-id=\"" + g.id + "\" data-tipo=\"gasto\">Editar</button><button class=\"btn-accion borrar\" data-id=\"" + g.id + "\" data-tipo=\"gasto\">Borrar</button></div></td></tr>"; });
+      document.getElementById("totalIngresos").textContent = formatearMoneda(tIng);
+      document.getElementById("totalGastos").textContent = formatearMoneda(tGas);
+      document.getElementById("emptyIngresos").style.display = ingF.length ? "none" : "block";
+      document.getElementById("emptyGastos").style.display = gasF.length ? "none" : "block";
+      actualizarResumen(tIng, tGas);
+      renderizarGrafico(document.getElementById("graficoGastos"), agruparPorCategoria(gasF), "#f97316", "#ea580c");
+      renderizarGrafico(document.getElementById("graficoIngresos"), agruparPorCategoria(ingF), "#22c55e", "#16a34a");
+      document.querySelectorAll(".btn-accion.editar").forEach(btn => { btn.onclick = function() {
+        const id = this.getAttribute("data-id"), tipo = this.getAttribute("data-tipo");
+        const mov = tipo === "ingreso" ? ingresos.find(i => i.id === id) : gastos.find(g => g.id === id);
+        if (!mov) return;
+        if (tipo === "ingreso") { document.getElementById("fechaIngreso").value = mov.fecha || ""; document.getElementById("categoriaIngreso").value = mov.categoria || ""; document.getElementById("montoIngreso").value = mov.monto ?? ""; document.getElementById("descripcionIngreso").value = mov.descripcion || ""; document.getElementById("tagsIngreso").value = (mov.tags || []).join(", "); editandoIngresoId = id; editandoGastoId = null; document.getElementById("estadoIngreso").textContent = "Editando."; document.getElementById("estadoGasto").textContent = ""; document.getElementById("btnSubmitIngreso").textContent = "Guardar"; document.getElementById("btnSubmitGasto").textContent = "Añadir gasto"; }
+        else { document.getElementById("fechaGasto").value = mov.fecha || ""; document.getElementById("categoriaGasto").value = mov.categoria || ""; document.getElementById("montoGasto").value = mov.monto ?? ""; document.getElementById("descripcionGasto").value = mov.descripcion || ""; document.getElementById("tagsGasto").value = (mov.tags || []).join(", "); editandoGastoId = id; editandoIngresoId = null; document.getElementById("estadoGasto").textContent = "Editando."; document.getElementById("estadoIngreso").textContent = ""; document.getElementById("btnSubmitGasto").textContent = "Guardar"; document.getElementById("btnSubmitIngreso").textContent = "Añadir ingreso"; }
+      }; });
+      document.querySelectorAll(".btn-accion.borrar").forEach(btn => { btn.onclick = function() {
+        if (!confirm("¿Borrar?")) return;
+        const id = this.getAttribute("data-id"), tipo = this.getAttribute("data-tipo");
+        if (tipo === "ingreso") { const i = ingresos.findIndex(x => x.id === id); if (i !== -1) ingresos.splice(i, 1); }
+        else { const i = gastos.findIndex(x => x.id === id); if (i !== -1) gastos.splice(i, 1); }
+        guardarEstado(); actualizarFiltrosOpciones(); actualizarListas(); editandoIngresoId = null; editandoGastoId = null; document.getElementById("estadoIngreso").textContent = ""; document.getElementById("estadoGasto").textContent = ""; document.getElementById("btnSubmitIngreso").textContent = "Añadir ingreso"; document.getElementById("btnSubmitGasto").textContent = "Añadir gasto"; actualizarResumenMensual();
+      }; });
     }
 
-    formIngresos.addEventListener("submit", (e) => {
+    document.getElementById("formIngresos").addEventListener("submit", function(e) {
       e.preventDefault();
-      const fecha = document.getElementById("fechaIngreso").value;
-      const categoria = document.getElementById("categoriaIngreso").value;
-      const monto = parseFloat(document.getElementById("montoIngreso").value || "0");
-      const descripcion = document.getElementById("descripcionIngreso").value.trim();
-      const tags = parsearTagsDesdeInput(document.getElementById("tagsIngreso").value);
+      const fecha = document.getElementById("fechaIngreso").value, categoria = document.getElementById("categoriaIngreso").value, monto = parseFloat(document.getElementById("montoIngreso").value || "0"), descripcion = document.getElementById("descripcionIngreso").value.trim(), tags = (document.getElementById("tagsIngreso").value || "").split(",").map(t => t.trim()).filter(Boolean);
       if (!monto || monto <= 0) return;
-      if (editandoIngresoId) {
-        const idx = ingresos.findIndex(i => i.id === editandoIngresoId);
-        if (idx !== -1) {
-          ingresos[idx].fecha = fecha;
-          ingresos[idx].categoria = categoria;
-          ingresos[idx].monto = monto;
-          ingresos[idx].descripcion = descripcion;
-          ingresos[idx].tags = tags;
-        }
-      } else {
-        ingresos.push({ id: generarId(), fecha, categoria, monto, descripcion, tags });
-      }
-      guardarEstado();
-      actualizarFiltrosOpciones();
-      actualizarListas();
-      resetEdicion();
-      actualizarResumenMensual();
+      if (editandoIngresoId) { const idx = ingresos.findIndex(i => i.id === editandoIngresoId); if (idx !== -1) { ingresos[idx] = { ...ingresos[idx], fecha, categoria, monto, descripcion, tags }; } }
+      else ingresos.push({ id: generarId(), fecha, categoria, monto, descripcion, tags });
+      guardarEstado(); actualizarFiltrosOpciones(); actualizarListas(); editandoIngresoId = null; document.getElementById("estadoIngreso").textContent = ""; document.getElementById("btnSubmitIngreso").textContent = "Añadir ingreso"; document.getElementById("formIngresos").reset(); actualizarResumenMensual();
     });
-    formGastos.addEventListener("submit", (e) => {
+    document.getElementById("formGastos").addEventListener("submit", function(e) {
       e.preventDefault();
-      const fecha = document.getElementById("fechaGasto").value;
-      const categoria = document.getElementById("categoriaGasto").value;
-      const monto = parseFloat(document.getElementById("montoGasto").value || "0");
-      const descripcion = document.getElementById("descripcionGasto").value.trim();
-      const tags = parsearTagsDesdeInput(document.getElementById("tagsGasto").value);
+      const fecha = document.getElementById("fechaGasto").value, categoria = document.getElementById("categoriaGasto").value, monto = parseFloat(document.getElementById("montoGasto").value || "0"), descripcion = document.getElementById("descripcionGasto").value.trim(), tags = (document.getElementById("tagsGasto").value || "").split(",").map(t => t.trim()).filter(Boolean);
       if (!monto || monto <= 0) return;
-      if (editandoGastoId) {
-        const idx = gastos.findIndex(g => g.id === editandoGastoId);
-        if (idx !== -1) {
-          gastos[idx].fecha = fecha;
-          gastos[idx].categoria = categoria;
-          gastos[idx].monto = monto;
-          gastos[idx].descripcion = descripcion;
-          gastos[idx].tags = tags;
-        }
-      } else {
-        gastos.push({ id: generarId(), fecha, categoria, monto, descripcion, tags });
-      }
-      guardarEstado();
-      actualizarFiltrosOpciones();
-      actualizarListas();
-      resetEdicion();
-      actualizarResumenMensual();
+      if (editandoGastoId) { const idx = gastos.findIndex(g => g.id === editandoGastoId); if (idx !== -1) { gastos[idx] = { ...gastos[idx], fecha, categoria, monto, descripcion, tags }; } }
+      else gastos.push({ id: generarId(), fecha, categoria, monto, descripcion, tags });
+      guardarEstado(); actualizarFiltrosOpciones(); actualizarListas(); editandoGastoId = null; document.getElementById("estadoGasto").textContent = ""; document.getElementById("btnSubmitGasto").textContent = "Añadir gasto"; document.getElementById("formGastos").reset(); actualizarResumenMensual();
     });
 
-    function manejarNuevaCategoria(selectId) {
-      const select = document.getElementById(selectId);
-      const nombre = prompt("Nombre de la nueva categoría:");
-      if (!nombre) return;
-      const normalizado = nombre.trim();
-      if (!normalizado) return;
-      if (Array.from(select.options).some(opt => opt.text.toLowerCase() === normalizado.toLowerCase())) {
-        alert("Esa categoría ya existe.");
-        return;
-      }
-      const opt = document.createElement("option");
-      opt.value = normalizado;
-      opt.textContent = normalizado;
-      select.appendChild(opt);
-      select.value = normalizado;
-      guardarEstado();
-    }
-    document.getElementById("btnAddCatIngreso").addEventListener("click", () => manejarNuevaCategoria("categoriaIngreso"));
-    document.getElementById("btnAddCatGasto").addEventListener("click", () => manejarNuevaCategoria("categoriaGasto"));
+    document.getElementById("btnAddCatIngreso").addEventListener("click", function() { const n = prompt("Nueva categoría:"); if (!n || !n.trim()) return; const s = document.getElementById("categoriaIngreso"); if (Array.from(s.options).some(o => o.text.toLowerCase() === n.trim().toLowerCase())) { alert("Ya existe."); return; } const o = document.createElement("option"); o.value = o.textContent = n.trim(); s.appendChild(o); s.value = o.value; guardarEstado(); });
+    document.getElementById("btnAddCatGasto").addEventListener("click", function() { const n = prompt("Nueva categoría:"); if (!n || !n.trim()) return; const s = document.getElementById("categoriaGasto"); if (Array.from(s.options).some(o => o.text.toLowerCase() === n.trim().toLowerCase())) { alert("Ya existe."); return; } const o = document.createElement("option"); o.value = o.textContent = n.trim(); s.appendChild(o); s.value = o.value; guardarEstado(); });
 
-    function exportarCSV() {
-      const filas = [["Tipo", "Fecha", "Categoría", "Descripción", "Etiquetas", "Monto"]];
-      ingresos.forEach(i => filas.push(["Ingreso", i.fecha || "", i.categoria || "", i.descripcion || "", (Array.isArray(i.tags) ? i.tags.join(", ") : ""), (i.monto ?? 0).toFixed(2).replace(".", ",")]));
-      gastos.forEach(g => filas.push(["Gasto", g.fecha || "", g.categoria || "", g.descripcion || "", (Array.isArray(g.tags) ? g.tags.join(", ") : ""), (g.monto ?? 0).toFixed(2).replace(".", ",")]));
-      const contenido = filas.map(fila => fila.map(c => `"${String(c).replace(/"/g, '""')}"`).join(";")).join("\n");
-      const blob = new Blob([contenido], { type: "text/csv;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "finanzas_personales.csv";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-    btnExportar.addEventListener("click", exportarCSV);
-
-    function agregarManejadoresAcciones() {
-      document.querySelectorAll(".btn-accion.editar").forEach(btn => {
-        btn.onclick = () => {
-          const id = btn.getAttribute("data-id");
-          const tipo = btn.getAttribute("data-tipo");
-          if (tipo === "ingreso") {
-            const mov = ingresos.find(i => i.id === id);
-            if (!mov) return;
-            document.getElementById("fechaIngreso").value = mov.fecha || "";
-            document.getElementById("categoriaIngreso").value = mov.categoria || "";
-            document.getElementById("montoIngreso").value = mov.monto ?? "";
-            document.getElementById("descripcionIngreso").value = mov.descripcion || "";
-            document.getElementById("tagsIngreso").value = (mov.tags || []).join(", ");
-            editandoIngresoId = id;
-            editandoGastoId = null;
-            estadoIngreso.textContent = "Editando un ingreso existente.";
-            estadoGasto.textContent = "";
-            btnSubmitIngreso.textContent = "Guardar cambios";
-            btnSubmitGasto.textContent = "Añadir gasto";
-            formIngresos.scrollIntoView({ behavior: "smooth", block: "start" });
-          } else {
-            const mov = gastos.find(g => g.id === id);
-            if (!mov) return;
-            document.getElementById("fechaGasto").value = mov.fecha || "";
-            document.getElementById("categoriaGasto").value = mov.categoria || "";
-            document.getElementById("montoGasto").value = mov.monto ?? "";
-            document.getElementById("descripcionGasto").value = mov.descripcion || "";
-            document.getElementById("tagsGasto").value = (mov.tags || []).join(", ");
-            editandoGastoId = id;
-            editandoIngresoId = null;
-            estadoGasto.textContent = "Editando un gasto existente.";
-            estadoIngreso.textContent = "";
-            btnSubmitGasto.textContent = "Guardar cambios";
-            btnSubmitIngreso.textContent = "Añadir ingreso";
-            formGastos.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-        };
-      });
-      document.querySelectorAll(".btn-accion.borrar").forEach(btn => {
-        btn.onclick = () => {
-          const id = btn.getAttribute("data-id");
-          const tipo = btn.getAttribute("data-tipo");
-          if (!confirm("¿Seguro que quieres borrar este movimiento?")) return;
-          if (tipo === "ingreso") {
-            const idx = ingresos.findIndex(i => i.id === id);
-            if (idx !== -1) ingresos.splice(idx, 1);
-          } else {
-            const idx = gastos.findIndex(g => g.id === id);
-            if (idx !== -1) gastos.splice(idx, 1);
-          }
-          guardarEstado();
-          actualizarFiltrosOpciones();
-          actualizarListas();
-          resetEdicion();
-          actualizarResumenMensual();
-        };
-      });
-    }
-    filtroAnio.addEventListener("change", () => { actualizarListas(); });
-    filtroMes.addEventListener("change", () => { actualizarListas(); });
-    filtroTag.addEventListener("change", () => { actualizarListas(); });
-    btnLimpiarFiltros.addEventListener("click", (e) => {
-      e.preventDefault();
-      filtroAnio.value = "all";
-      filtroMes.value = "all";
-      filtroTag.value = "all";
-      actualizarListas();
+    document.getElementById("btnExportar").addEventListener("click", function() {
+      const filas = [["Tipo","Fecha","Categoría","Descripción","Etiquetas","Monto"]];
+      ingresos.forEach(i => filas.push(["Ingreso", i.fecha||"", i.categoria||"", i.descripcion||"", (i.tags||[]).join(", "), (i.monto??0).toFixed(2).replace(".",",")]));
+      gastos.forEach(g => filas.push(["Gasto", g.fecha||"", g.categoria||"", g.descripcion||"", (g.tags||[]).join(", "), (g.monto??0).toFixed(2).replace(".",",")]));
+      const blob = new Blob([filas.map(f => f.map(c => '"' + String(c).replace(/"/g,'""') + '"').join(";")).join("\n")], { type: "text/csv;charset=utf-8" });
+      const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "finanzas_personales.csv"; a.click(); URL.revokeObjectURL(a.href);
     });
 
-    // --- Pestañas ---
-    document.querySelectorAll(".tab").forEach(tab => {
-      tab.addEventListener("click", () => {
-        document.querySelectorAll(".tab").forEach(t => t.classList.remove("activo"));
-        document.querySelectorAll(".panel").forEach(p => p.classList.remove("activo"));
-        tab.classList.add("activo");
-        document.getElementById("panel-" + tab.getAttribute("data-panel")).classList.add("activo");
-      });
-    });
+    document.querySelectorAll(".tab").forEach(tab => { tab.addEventListener("click", function() { document.querySelectorAll(".tab").forEach(t => t.classList.remove("activo")); document.querySelectorAll(".panel").forEach(p => p.classList.remove("activo")); this.classList.add("activo"); document.getElementById("panel-" + this.getAttribute("data-panel")).classList.add("activo"); }); });
 
-    // --- Inversiones inmobiliarias: pisos con meses ---
-    function getMesesKey(anio) {
-      const a = anio || (document.getElementById("anioPisos") && document.getElementById("anioPisos").value) || new Date().getFullYear().toString();
-      return "meses_" + a;
-    }
+    function getMesesKey(anio) { const a = anio || (document.getElementById("anioPisos") && document.getElementById("anioPisos").value) || new Date().getFullYear().toString(); return "meses_" + a; }
     function renderPisos() {
-      const contenedor = document.getElementById("listaPisos");
-      const selAnio = document.getElementById("anioPisos");
-      contenedor.innerHTML = "";
+      const cont = document.getElementById("listaPisos"), selAnio = document.getElementById("anioPisos");
+      cont.innerHTML = "";
       const anio = selAnio ? parseInt(selAnio.value, 10) || new Date().getFullYear() : new Date().getFullYear();
+      if (!selAnio.options.length) { const y = new Date().getFullYear(); for (let i = y; i >= y - 5; i--) { const o = document.createElement("option"); o.value = i; o.textContent = i; selAnio.appendChild(o); } selAnio.value = y; }
       pisos.forEach(piso => {
-        const key = getMesesKey(anio);
-        if (!piso[key]) piso[key] = {};
-        const bloque = document.createElement("div");
-        bloque.className = "piso-block";
-        bloque.innerHTML = `<div class="piso-nombre">${piso.nombre || "Sin nombre"} ${piso.renta ? " — " + formatearMoneda(piso.renta) + "/mes" : ""}</div>`;
-        const grid = document.createElement("div");
-        grid.className = "meses-grid";
+        const key = getMesesKey(anio); if (!piso[key]) piso[key] = {};
+        const bloque = document.createElement("div"); bloque.className = "piso-block";
+        const datosLine = [];
+        if (piso.totalCompra != null && piso.totalCompra !== "") datosLine.push("Total compra: " + formatearMoneda(Number(piso.totalCompra)));
+        if (piso.capitalInvertido != null && piso.capitalInvertido !== "") datosLine.push("Capital invertido: " + formatearMoneda(Number(piso.capitalInvertido)));
+        if (piso.roi != null && piso.roi !== "") datosLine.push("ROI: " + Number(piso.roi) + " %");
+        if (piso.roce != null && piso.roce !== "") datosLine.push("ROCE: " + Number(piso.roce) + " %");
+        bloque.innerHTML = "<div class=\"piso-nombre\">" + (piso.nombre || "Sin nombre") + (piso.renta ? " — " + formatearMoneda(piso.renta) + "/mes" : "") + "</div>" + (datosLine.length ? "<div class=\"piso-datos\">" + datosLine.map(x => "<span>" + x + "</span>").join("") + "</div>" : "");
+        const grid = document.createElement("div"); grid.className = "meses-grid";
         for (let mes = 1; mes <= 12; mes++) {
-          const celda = document.createElement("div");
-          celda.className = "mes-celda";
-          const mesKey = mes.toString();
-          const datos = piso[key][mesKey] || {};
-          const cobrado = !!datos.cobrado;
-          const fileName = datos.fileName ? datos.fileName : "";
-          celda.innerHTML = `
-            <div class="mes-nombre">${MESES[mes - 1]}</div>
-            <div class="check-cobro">
-              <label><input type="checkbox" data-piso-id="${piso.id}" data-mes="${mes}" class="check-renta" ${cobrado ? "checked" : ""} /> Cobrado</label>
-            </div>
-            <input type="file" data-piso-id="${piso.id}" data-mes="${mes}" class="file-pago" accept=".pdf,.jpg,.jpeg,.png" title="Archivo de pago" />
-            ${fileName ? `<div style="font-size:0.7rem;color:#94a3b8;margin-top:2px;" title="Archivo">${fileName}</div>` : ""}
-          `;
+          const datos = piso[key][mes.toString()] || {}, cobrado = !!datos.cobrado, fn = datos.fileName || "";
+          const celda = document.createElement("div"); celda.className = "mes-celda";
+          celda.innerHTML = "<div class=\"mes-nombre\">" + MESES[mes-1] + "</div><div class=\"check-cobro\"><label><input type=\"checkbox\" class=\"check-renta\" data-piso-id=\"" + piso.id + "\" data-mes=\"" + mes + "\"" + (cobrado ? " checked" : "") + " /> Cobrado</label></div><input type=\"file\" class=\"file-pago\" data-piso-id=\"" + piso.id + "\" data-mes=\"" + mes + "\" accept=\".pdf,.jpg,.jpeg,.png\" />" + (fn ? "<div style=\"font-size:0.7rem;color:#94a3b8;margin-top:2px\">" + fn + "</div>" : "");
           grid.appendChild(celda);
         }
         bloque.appendChild(grid);
-        const btnEliminar = document.createElement("button");
-        btnEliminar.type = "button";
-        btnEliminar.className = "btn-accion borrar";
-        btnEliminar.style.marginTop = "10px";
-        btnEliminar.textContent = "Eliminar piso";
-        btnEliminar.onclick = () => {
-          if (confirm("¿Eliminar este piso?")) {
-            pisos = pisos.filter(x => x.id !== piso.id);
-            guardarEstado();
-            renderPisos();
-          }
-        };
-        bloque.appendChild(btnEliminar);
-        contenedor.appendChild(bloque);
+        const btnDel = document.createElement("button"); btnDel.type = "button"; btnDel.className = "btn-accion borrar"; btnDel.style.marginTop = "10px"; btnDel.textContent = "Eliminar piso";
+        btnDel.onclick = function() { if (confirm("¿Eliminar este piso?")) { pisos = pisos.filter(x => x.id !== piso.id); guardarEstado(); renderPisos(); } };
+        bloque.appendChild(btnDel);
+        cont.appendChild(bloque);
       });
-      if (selAnio && !selAnio.options.length) {
-        const anioActual = new Date().getFullYear();
-        for (let y = anioActual; y >= anioActual - 5; y--) {
-          const opt = document.createElement("option");
-          opt.value = y;
-          opt.textContent = y;
-          selAnio.appendChild(opt);
-        }
-        selAnio.value = anioActual;
-      }
-      if (pisos.length === 0) {
-        contenedor.innerHTML = '<p class="empty">Añade un piso para ver la fila de meses con cobro y archivo de pago.</p>';
-        return;
-      }
-      document.querySelectorAll(".check-renta").forEach(check => {
-        check.addEventListener("change", () => {
-          const pisoId = check.getAttribute("data-piso-id");
-          const mes = check.getAttribute("data-mes");
-          const p = pisos.find(x => x.id === pisoId);
-          if (!p) return;
-          const key = getMesesKey();
-          if (!p[key]) p[key] = {};
-          p[key][mes] = p[key][mes] || {};
-          p[key][mes].cobrado = check.checked;
-          guardarEstado();
-        });
-      });
-      document.querySelectorAll(".file-pago").forEach(input => {
-        input.addEventListener("change", (e) => {
-          const pisoId = input.getAttribute("data-piso-id");
-          const mes = input.getAttribute("data-mes");
-          const p = pisos.find(x => x.id === pisoId);
-          if (!p) return;
-          const key = getMesesKey();
-          if (!p[key]) p[key] = {};
-          p[key][mes] = p[key][mes] || {};
-          const file = e.target.files && e.target.files[0];
-          if (file) {
-            p[key][mes].fileName = file.name;
-            p[key][mes].fileSize = file.size;
-          } else {
-            delete p[key][mes].fileName;
-            delete p[key][mes].fileSize;
-          }
-          guardarEstado();
-          renderPisos();
-        });
-      });
+      if (pisos.length === 0) { cont.innerHTML = "<p class=\"empty\">Añade un piso para ver meses con cobro y archivo de pago.</p>"; return; }
+      cont.querySelectorAll(".check-renta").forEach(ch => { ch.addEventListener("change", function() { const p = pisos.find(x => x.id === this.getAttribute("data-piso-id")); if (!p) return; const k = getMesesKey(); if (!p[k]) p[k] = {}; p[k][this.getAttribute("data-mes")] = p[k][this.getAttribute("data-mes")] || {}; p[k][this.getAttribute("data-mes")].cobrado = this.checked; guardarEstado(); }); });
+      cont.querySelectorAll(".file-pago").forEach(inp => { inp.addEventListener("change", function(e) { const p = pisos.find(x => x.id === this.getAttribute("data-piso-id")); if (!p) return; const k = getMesesKey(); if (!p[k]) p[k] = {}; const key = this.getAttribute("data-mes"); p[k][key] = p[k][key] || {}; const f = e.target.files && e.target.files[0]; if (f) { p[k][key].fileName = f.name; p[k][key].fileSize = f.size; } else { delete p[k][key].fileName; delete p[k][key].fileSize; } guardarEstado(); renderPisos(); }); });
     }
-    const anioPisosEl = document.getElementById("anioPisos");
-    if (anioPisosEl) anioPisosEl.addEventListener("change", renderPisos);
+    if (document.getElementById("anioPisos")) document.getElementById("anioPisos").addEventListener("change", renderPisos);
 
-    document.getElementById("formPiso").addEventListener("submit", (e) => {
+    document.getElementById("formPiso").addEventListener("submit", function(e) {
       e.preventDefault();
       const nombre = document.getElementById("nombrePiso").value.trim();
-      const renta = parseFloat(document.getElementById("rentaPiso").value || "0") || null;
       if (!nombre) return;
-      pisos.push({ id: generarId(), nombre, renta, meses: {} });
-      document.getElementById("nombrePiso").value = "";
-      document.getElementById("rentaPiso").value = "";
-      guardarEstado();
-      renderPisos();
+      const renta = parseFloat(document.getElementById("rentaPiso").value || "0") || null;
+      const totalCompra = document.getElementById("totalCompraPiso").value !== "" ? parseFloat(document.getElementById("totalCompraPiso").value) : null;
+      const capitalInvertido = document.getElementById("capitalInvertidoPiso").value !== "" ? parseFloat(document.getElementById("capitalInvertidoPiso").value) : null;
+      const roi = document.getElementById("roiPiso").value !== "" ? parseFloat(document.getElementById("roiPiso").value) : null;
+      const roce = document.getElementById("rocePiso").value !== "" ? parseFloat(document.getElementById("rocePiso").value) : null;
+      pisos.push({ id: generarId(), nombre, renta, totalCompra, capitalInvertido, roi, roce, meses: {} });
+      document.getElementById("nombrePiso").value = ""; document.getElementById("rentaPiso").value = ""; document.getElementById("totalCompraPiso").value = ""; document.getElementById("capitalInvertidoPiso").value = ""; document.getElementById("roiPiso").value = ""; document.getElementById("rocePiso").value = "";
+      guardarEstado(); renderPisos();
     });
 
-    // --- Opciones de inversión: TAE, años, cuota, desglose anual ---
     function actualizarDesgloseAnual() {
-      const tae = parseFloat(document.getElementById("inversionTAE").value) || inversion.tae;
-      const anios = parseInt(document.getElementById("inversionAnios").value, 10) || inversion.anios || 25;
-      const prestamo = parseFloat(document.getElementById("inversionPrestamo").value) || inversion.prestamo || 0;
-      const cuota = parseFloat(document.getElementById("inversionCuota").value) || inversion.cuota || 0;
-      if (!inversion.desgloseAnual || inversion.desgloseAnual.length === 0) {
-        inversion.desgloseAnual = [];
-        for (let y = 1; y <= anios; y++) {
-          inversion.desgloseAnual.push({ anio: y, interesesMes: 0, amortizacionMes: cuota });
-        }
-      }
-      const tbody = document.getElementById("desgloseAnualBody");
-      tbody.innerHTML = "";
-      let capitalPendiente = prestamo;
-      const aniosMostrar = Math.min(anios, inversion.desgloseAnual.length || anios);
-      for (let i = 0; i < aniosMostrar; i++) {
+      const anios = parseInt(document.getElementById("inversionAnios").value, 10) || inversion.anios || 25, prestamo = parseFloat(document.getElementById("inversionPrestamo").value) || inversion.prestamo || 0, cuota = parseFloat(document.getElementById("inversionCuota").value) || inversion.cuota || 0;
+      if (!inversion.desgloseAnual || !inversion.desgloseAnual.length) { inversion.desgloseAnual = []; for (let y = 1; y <= anios; y++) inversion.desgloseAnual.push({ anio: y, interesesMes: 0, amortizacionMes: cuota }); }
+      const tbody = document.getElementById("desgloseAnualBody"); tbody.innerHTML = "";
+      let cap = prestamo;
+      const n = Math.min(anios, inversion.desgloseAnual.length || anios);
+      for (let i = 0; i < n; i++) {
         const row = inversion.desgloseAnual[i] || { anio: i + 1, interesesMes: 0, amortizacionMes: cuota };
-        const amortAnual = (row.amortizacionMes || 0) * 12;
-        capitalPendiente = Math.max(0, capitalPendiente - amortAnual);
+        cap = Math.max(0, cap - (row.amortizacionMes || 0) * 12);
         const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>Año ${row.anio}</td>
-          <td><input type="number" step="0.01" data-anio-idx="${i}" data-campo="interesesMes" value="${row.interesesMes || 0}" style="width:90px;" /></td>
-          <td><input type="number" step="0.01" data-anio-idx="${i}" data-campo="amortizacionMes" value="${row.amortizacionMes || 0}" style="width:90px;" /></td>
-          <td>${formatearMoneda(capitalPendiente)}</td>`;
+        tr.innerHTML = "<td>Año " + row.anio + "</td><td><input type=\"number\" step=\"0.01\" data-idx=\"" + i + "\" data-campo=\"interesesMes\" value=\"" + (row.interesesMes || 0) + "\" style=\"width:90px\" /></td><td><input type=\"number\" step=\"0.01\" data-idx=\"" + i + "\" data-campo=\"amortizacionMes\" value=\"" + (row.amortizacionMes || 0) + "\" style=\"width:90px\" /></td><td>" + formatearMoneda(cap) + "</td>";
         tbody.appendChild(tr);
       }
-      tbody.querySelectorAll("input[data-anio-idx]").forEach(input => {
-        input.addEventListener("change", () => {
-          const idx = parseInt(input.getAttribute("data-anio-idx"), 10);
-          const campo = input.getAttribute("data-campo");
-          const val = parseFloat(input.value) || 0;
-          if (!inversion.desgloseAnual[idx]) inversion.desgloseAnual[idx] = { anio: idx + 1, interesesMes: 0, amortizacionMes: 0 };
-          inversion.desgloseAnual[idx][campo] = val;
-          guardarEstado();
-          actualizarDesgloseAnual();
-        });
-      });
+      tbody.querySelectorAll("input[data-idx]").forEach(inp => { inp.addEventListener("change", function() { const idx = parseInt(this.getAttribute("data-idx"), 10), campo = this.getAttribute("data-campo"), val = parseFloat(this.value) || 0; if (!inversion.desgloseAnual[idx]) inversion.desgloseAnual[idx] = { anio: idx + 1, interesesMes: 0, amortizacionMes: 0 }; inversion.desgloseAnual[idx][campo] = val; guardarEstado(); actualizarDesgloseAnual(); }); });
     }
-
-    document.getElementById("btnGuardarInversion").addEventListener("click", () => {
+    document.getElementById("btnGuardarInversion").addEventListener("click", function() {
       inversion.tae = parseFloat(document.getElementById("inversionTAE").value) || null;
       inversion.anios = parseInt(document.getElementById("inversionAnios").value, 10) || null;
       inversion.prestamo = parseFloat(document.getElementById("inversionPrestamo").value) || null;
       inversion.cuota = parseFloat(document.getElementById("inversionCuota").value) || null;
-      guardarEstado();
-      actualizarDesgloseAnual();
+      guardarEstado(); actualizarDesgloseAnual();
     });
-    function rellenarInversionInputs() {
-      if (inversion.tae != null) document.getElementById("inversionTAE").value = inversion.tae;
-      if (inversion.anios != null) document.getElementById("inversionAnios").value = inversion.anios;
-      if (inversion.prestamo != null) document.getElementById("inversionPrestamo").value = inversion.prestamo;
-      if (inversion.cuota != null) document.getElementById("inversionCuota").value = inversion.cuota;
-    }
+    function rellenarInversionInputs() { if (inversion.tae != null) document.getElementById("inversionTAE").value = inversion.tae; if (inversion.anios != null) document.getElementById("inversionAnios").value = inversion.anios; if (inversion.prestamo != null) document.getElementById("inversionPrestamo").value = inversion.prestamo; if (inversion.cuota != null) document.getElementById("inversionCuota").value = inversion.cuota; }
 
-    // --- Resumen por mes del año ---
     function actualizarResumenMensual() {
-      const selectAnio = document.getElementById("resumenAnio");
-      const contenedor = document.getElementById("resumenMensualContenedor");
-      const años = new Set();
-      [...ingresos, ...gastos].forEach(m => {
-        const d = parsearFecha(m.fecha);
-        if (d) años.add(d.getFullYear());
-      });
-      const anioActual = new Date().getFullYear();
-      años.add(anioActual);
-      const opcionesAnio = Array.from(selectAnio.options).map(o => o.value);
-      selectAnio.innerHTML = "";
-      Array.from(años).sort((a, b) => b - a).forEach(a => {
-        const opt = document.createElement("option");
-        opt.value = a;
-        opt.textContent = a;
-        selectAnio.appendChild(opt);
-      });
-      if (!selectAnio.value) selectAnio.value = anioActual;
-
-      const anio = parseInt(selectAnio.value, 10);
-      contenedor.innerHTML = "";
+      const selectAnio = document.getElementById("resumenAnio"), cont = document.getElementById("resumenMensualContenedor");
+      const años = new Set(); [...ingresos, ...gastos].forEach(m => { const d = parsearFecha(m.fecha); if (d) años.add(d.getFullYear()); }); años.add(new Date().getFullYear());
+      selectAnio.innerHTML = ""; Array.from(años).sort((a,b)=>b-a).forEach(a => { const o = document.createElement("option"); o.value = a; o.textContent = a; selectAnio.appendChild(o); });
+      if (!selectAnio.value) selectAnio.value = new Date().getFullYear();
+      const anio = parseInt(selectAnio.value, 10); cont.innerHTML = "";
       for (let mes = 1; mes <= 12; mes++) {
-        const ingresosMes = ingresos.filter(m => {
-          const d = parsearFecha(m.fecha);
-          return d && d.getFullYear() === anio && d.getMonth() + 1 === mes;
-        });
-        const gastosMes = gastos.filter(m => {
-          const d = parsearFecha(m.fecha);
-          return d && d.getFullYear() === anio && d.getMonth() + 1 === mes;
-        });
-        const totalIng = ingresosMes.reduce((s, m) => s + (m.monto || 0), 0);
-        const totalGas = gastosMes.reduce((s, m) => s + (m.monto || 0), 0);
-        const ahorroPct = totalIng > 0 ? ((totalIng - totalGas) / totalIng * 100).toFixed(1).replace(".", ",") : "0,0";
-        const gastosPorCat = agruparPorCategoria(gastosMes);
-        const card = document.createElement("div");
-        card.className = "mes-resumen-card";
-        card.innerHTML = `
-          <h4>${MESES[mes - 1]} ${anio}</h4>
-          <div class="ingresos-mes">Ingresos: ${formatearMoneda(totalIng)}</div>
-          <div class="gastos-mes">
-            ${gastosPorCat.length ? gastosPorCat.map(([cat, val]) => `<div class="gasto-cat"><span>${cat}</span><span>${formatearMoneda(val)}</span></div>`).join("") : "<div class='gasto-cat'>Sin gastos</div>"}
-            <div class="gasto-cat"><strong>Total gastos</strong><strong>${formatearMoneda(totalGas)}</strong></div>
-          </div>
-          <div class="ahorro-pct">% ahorro: ${ahorroPct} %</div>`;
-        contenedor.appendChild(card);
+        const ingM = ingresos.filter(m => { const d = parsearFecha(m.fecha); return d && d.getFullYear() === anio && d.getMonth() + 1 === mes; });
+        const gasM = gastos.filter(m => { const d = parsearFecha(m.fecha); return d && d.getFullYear() === anio && d.getMonth() + 1 === mes; });
+        const tIng = ingM.reduce((s, m) => s + (m.monto || 0), 0), tGas = gasM.reduce((s, m) => s + (m.monto || 0), 0);
+        const pct = tIng > 0 ? ((tIng - tGas) / tIng * 100).toFixed(1).replace(".", ",") : "0,0";
+        const gastosCat = agruparPorCategoria(gasM);
+        const card = document.createElement("div"); card.className = "mes-resumen-card";
+        card.innerHTML = "<h4>" + MESES[mes-1] + " " + anio + "</h4><div class=\"ingresos-mes\">Ingresos: " + formatearMoneda(tIng) + "</div><div class=\"gastos-mes\">" + (gastosCat.length ? gastosCat.map(([c,v]) => "<div class=\"gasto-cat\"><span>" + c + "</span><span>" + formatearMoneda(v) + "</span></div>").join("") : "<div class=\"gasto-cat\">Sin gastos</div>") + "<div class=\"gasto-cat\"><strong>Total gastos</strong><strong>" + formatearMoneda(tGas) + "</strong></div></div><div class=\"ahorro-pct\">% ahorro: " + pct + " %</div>";
+        cont.appendChild(card);
       }
     }
     document.getElementById("resumenAnio").addEventListener("change", actualizarResumenMensual);
