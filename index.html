@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <title>Finanzas personales</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="manifest" href="manifest.json" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
     body { background: #0f172a; color: #e5e7eb; padding: 24px; }
@@ -122,20 +124,25 @@
           <div class="summary-label">% ahorro</div>
           <div id="resumenAhorro" class="summary-value pos">0,0 %</div>
           <button id="btnExportar" class="btn-export">Exportar datos (CSV)</button>
-          <button id="btnBackupExport" class="btn-export" style="margin-left:4px;">Backup (JSON)</button>
+          <button id="btnImportarCSV" class="btn-export" style="margin-left:4px;">Importar CSV</button>
+          <button id="btnBackupExport" class="btn-export" style="margin-top:4px;">Backup (JSON)</button>
           <button id="btnBackupImport" class="btn-export" style="margin-top:4px;">Importar backup</button>
+          <button id="btnBackupMerge" class="btn-export" style="margin-top:4px;">Fusionar backup</button>
           <input type="file" id="backupFileInput" accept="application/json,.json" style="display:none;" />
+          <input type="file" id="csvFileInput" accept=".csv,text/csv" style="display:none;" />
         </div>
       </div>
       <div class="filters">
         <div class="filters-group"><label for="filtroAnio">Año</label><select id="filtroAnio"><option value="all">Todos los años</option></select></div>
         <div class="filters-group"><label for="filtroMes">Mes</label><select id="filtroMes"><option value="all">Todos</option><option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option><option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option><option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option><option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option></select></div>
         <div class="filters-group"><label for="filtroTag">Etiqueta</label><select id="filtroTag"><option value="all">Todas</option></select></div>
+        <div class="filters-group"><label for="filtroBusqueda">Búsqueda rápida</label><input type="text" id="filtroBusqueda" placeholder="Descripción, categoría o etiqueta" /></div>
         <div class="filters-group"><button id="btnLimpiarFiltros" class="btn-clear-filters">Quitar filtros</button></div>
       </div>
       <div class="charts">
         <div class="chart-card"><div class="chart-title">Gastos por categoría</div><div id="graficoGastos"></div></div>
         <div class="chart-card"><div class="chart-title">Ingresos por categoría</div><div id="graficoIngresos"></div></div>
+        <div class="chart-card"><div class="chart-title">Evolución ingresos vs gastos (año seleccionado)</div><div id="graficoEvolucion"></div></div>
       </div>
       <div class="grid">
         <section class="card ingresos">
@@ -206,6 +213,7 @@
           <div><label>Años</label><input type="number" id="inversionAnios" min="1" max="40" placeholder="25" /></div>
           <div><label>Préstamo solicitado (€)</label><input type="number" id="inversionPrestamo" min="0" step="100" placeholder="150000" /></div>
           <div><label>Cuota mensual (€)</label><input type="number" id="inversionCuota" min="0" step="0.01" placeholder="650" /></div>
+          <div><button type="button" class="btn-sec" id="btnCalcularCuota">Calcular cuota estimada</button></div>
           <div><button type="button" class="btn-sec" id="btnGuardarInversion">Guardar datos</button></div>
         </div>
         <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px;">Desglose por año: intereses y amortización (€/mes). Se actualiza una vez al año.</p>
@@ -226,10 +234,14 @@
     let ingresos = [], gastos = [], pisos = [];
     let inversion = { tae: null, anios: null, prestamo: null, cuota: null, desgloseAnual: [] };
     let editandoIngresoId = null, editandoGastoId = null;
+    let modoFusionBackup = false;
     const selectPisoInversion = document.getElementById("pisoInversionSelect");
     const btnBackupExport = document.getElementById("btnBackupExport");
     const btnBackupImport = document.getElementById("btnBackupImport");
+    const btnBackupMerge = document.getElementById("btnBackupMerge");
     const backupFileInput = document.getElementById("backupFileInput");
+    const btnImportarCSV = document.getElementById("btnImportarCSV");
+    const csvFileInput = document.getElementById("csvFileInput");
 
     function generarId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
     function formatearMoneda(v) { return (v ?? 0).toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €"; }
@@ -267,13 +279,26 @@
       }
     }
 
-    function obtenerFiltros() { return { anio: document.getElementById("filtroAnio").value, mes: document.getElementById("filtroMes").value, tag: document.getElementById("filtroTag").value }; }
+    function obtenerFiltros() {
+      const inputBusqueda = document.getElementById("filtroBusqueda");
+      const busqueda = inputBusqueda ? inputBusqueda.value.trim().toLowerCase() : "";
+      return {
+        anio: document.getElementById("filtroAnio").value,
+        mes: document.getElementById("filtroMes").value,
+        tag: document.getElementById("filtroTag").value,
+        busqueda
+      };
+    }
     function filtrarMovimientos(lista) {
-      const { anio, mes, tag } = obtenerFiltros();
+      const { anio, mes, tag, busqueda } = obtenerFiltros();
       return lista.filter(m => {
         const d = parsearFecha(m.fecha);
         if (d) { if (anio !== "all" && d.getFullYear().toString() !== anio) return false; if (mes !== "all" && (d.getMonth() + 1).toString() !== mes) return false; } else { if (anio !== "all" || mes !== "all") return false; }
         if (tag !== "all" && !(Array.isArray(m.tags) ? m.tags : []).some(t => t.toLowerCase() === tag.toLowerCase())) return false;
+        if (busqueda) {
+          const texto = ((m.descripcion || "") + " " + (m.categoria || "") + " " + ((Array.isArray(m.tags) ? m.tags.join(" ") : ""))).toLowerCase();
+          if (!texto.includes(busqueda)) return false;
+        }
         return true;
       });
     }
@@ -307,6 +332,85 @@
       });
     }
 
+    function actualizarGraficoEvolucion(ingresosLista, gastosLista) {
+      const cont = document.getElementById("graficoEvolucion");
+      if (!cont) return;
+      cont.innerHTML = "";
+
+      const filtroAnioEl = document.getElementById("filtroAnio");
+      let anioBase = new Date().getFullYear();
+      if (filtroAnioEl && filtroAnioEl.value !== "all") {
+        const a = parseInt(filtroAnioEl.value, 10);
+        if (!isNaN(a)) anioBase = a;
+      }
+
+      const datos = [];
+      for (let mes = 1; mes <= 12; mes++) {
+        const sumaIngresos = ingresosLista.reduce((s, m) => {
+          const d = parsearFecha(m.fecha);
+          return d && d.getFullYear() === anioBase && d.getMonth() + 1 === mes ? s + (m.monto || 0) : s;
+        }, 0);
+        const sumaGastos = gastosLista.reduce((s, m) => {
+          const d = parsearFecha(m.fecha);
+          return d && d.getFullYear() === anioBase && d.getMonth() + 1 === mes ? s + (m.monto || 0) : s;
+        }, 0);
+        if (sumaIngresos === 0 && sumaGastos === 0) continue;
+        datos.push({
+          mes,
+          etiqueta: MESES[mes - 1],
+          ingresos: sumaIngresos,
+          gastos: sumaGastos
+        });
+      }
+
+      if (!datos.length) {
+        const d = document.createElement("div");
+        d.className = "chart-empty";
+        d.textContent = "Sin datos para el año seleccionado.";
+        cont.appendChild(d);
+        return;
+      }
+
+      const max = Math.max(...datos.map(d => Math.max(d.ingresos, d.gastos))) || 1;
+      datos.forEach(dato => {
+        const row = document.createElement("div");
+        row.className = "chart-bar-row";
+
+        const lbl = document.createElement("div");
+        lbl.className = "chart-label";
+        lbl.textContent = dato.etiqueta;
+
+        const wrap = document.createElement("div");
+        wrap.className = "chart-bar-wrap";
+        wrap.style.height = "14px";
+        wrap.style.display = "flex";
+        wrap.style.flexDirection = "column";
+        wrap.style.justifyContent = "space-between";
+
+        const barIng = document.createElement("div");
+        barIng.className = "chart-bar";
+        barIng.style.width = ((dato.ingresos / max) * 100).toFixed(1) + "%";
+        barIng.style.background = "linear-gradient(90deg,#22c55e,#16a34a)";
+
+        const barGas = document.createElement("div");
+        barGas.className = "chart-bar";
+        barGas.style.width = ((dato.gastos / max) * 100).toFixed(1) + "%";
+        barGas.style.background = "linear-gradient(90deg,#f97316,#ea580c)";
+
+        wrap.appendChild(barIng);
+        wrap.appendChild(barGas);
+
+        const v = document.createElement("div");
+        v.className = "chart-value";
+        v.textContent = "I: " + formatearMoneda(dato.ingresos) + " · G: " + formatearMoneda(dato.gastos);
+
+        row.appendChild(lbl);
+        row.appendChild(wrap);
+        row.appendChild(v);
+        cont.appendChild(row);
+      });
+    }
+
     function actualizarFiltrosOpciones() {
       const años = new Set(), tags = new Set();
       [...ingresos, ...gastos].forEach(m => { const d = parsearFecha(m.fecha); if (d) años.add(d.getFullYear().toString()); (m.tags || []).forEach(t => { if (t) tags.add(t); }); });
@@ -333,6 +437,7 @@
       actualizarResumen(tIng, tGas);
       renderizarGrafico(document.getElementById("graficoGastos"), agruparPorCategoria(gasF), "#f97316", "#ea580c");
       renderizarGrafico(document.getElementById("graficoIngresos"), agruparPorCategoria(ingF), "#22c55e", "#16a34a");
+      actualizarGraficoEvolucion(ingF, gasF);
       document.querySelectorAll(".btn-accion.editar").forEach(btn => { btn.onclick = function() {
         const id = this.getAttribute("data-id"), tipo = this.getAttribute("data-tipo");
         const mov = tipo === "ingreso" ? ingresos.find(i => i.id === id) : gastos.find(g => g.id === id);
@@ -395,10 +500,164 @@
       }
     }
 
+    function prepararImportCSV() {
+      if (!csvFileInput) return;
+      csvFileInput.value = "";
+      csvFileInput.click();
+    }
+
+    function manejarArchivoCSV(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        try {
+          const texto = ev.target.result;
+          const lineas = String(texto).split(/\r?\n/).filter(l => l.trim());
+          if (lineas.length <= 1) {
+            alert("El CSV no contiene movimientos.");
+            return;
+          }
+          const nuevos = [];
+          for (let i = 1; i < lineas.length; i++) {
+            const linea = lineas[i];
+            if (!linea.trim()) continue;
+            const cols = [];
+            let actual = "";
+            let dentro = false;
+            for (let j = 0; j < linea.length; j++) {
+              const ch = linea[j];
+              if (ch === '"') {
+                if (dentro && linea[j + 1] === '"') {
+                  actual += '"';
+                  j++;
+                } else {
+                  dentro = !dentro;
+                }
+              } else if (ch === ';' && !dentro) {
+                cols.push(actual);
+                actual = "";
+              } else {
+                actual += ch;
+              }
+            }
+            cols.push(actual);
+            if (cols.length < 6) continue;
+            const tipo = cols[0].trim();
+            const fecha = cols[1].trim();
+            const categoria = cols[2].trim();
+            const descripcion = cols[3].trim();
+            const etiquetasStr = cols[4].trim();
+            const montoStr = cols[5].trim().replace(/\./g, "").replace(",", ".");
+            const monto = parseFloat(montoStr) || 0;
+            if (!monto) continue;
+            const tags = etiquetasStr ? etiquetasStr.split(",").map(t => t.trim()).filter(Boolean) : [];
+            const base = {
+              id: generarId(),
+              fecha,
+              categoria: categoria || "Sin categoría",
+              descripcion,
+              monto,
+              tags
+            };
+            if (/^ingreso/i.test(tipo)) {
+              nuevos.push({ ...base, _tipo: "ingreso" });
+            } else if (/^gasto/i.test(tipo)) {
+              nuevos.push({ ...base, _tipo: "gasto" });
+            }
+          }
+          if (!nuevos.length) {
+            alert("No se han encontrado movimientos válidos en el CSV.");
+            return;
+          }
+
+          const selCatIng = document.getElementById("categoriaIngreso");
+          const selCatGas = document.getElementById("categoriaGasto");
+          nuevos.forEach(m => {
+            if (m._tipo === "ingreso") {
+              ingresos.push({ id: m.id, fecha: m.fecha, categoria: m.categoria, descripcion: m.descripcion, monto: m.monto, tags: m.tags });
+              if (selCatIng && m.categoria && !Array.from(selCatIng.options).some(o => o.value.toLowerCase() === m.categoria.toLowerCase())) {
+                const o = document.createElement("option");
+                o.value = o.textContent = m.categoria;
+                selCatIng.appendChild(o);
+              }
+            } else if (m._tipo === "gasto") {
+              gastos.push({ id: m.id, fecha: m.fecha, categoria: m.categoria, descripcion: m.descripcion, monto: m.monto, tags: m.tags });
+              if (selCatGas && m.categoria && !Array.from(selCatGas.options).some(o => o.value.toLowerCase() === m.categoria.toLowerCase())) {
+                const o = document.createElement("option");
+                o.value = o.textContent = m.categoria;
+                selCatGas.appendChild(o);
+              }
+            }
+          });
+
+          guardarEstado();
+          actualizarFiltrosOpciones();
+          actualizarListas();
+          actualizarResumenMensual();
+          alert("Se han importado " + nuevos.length + " movimientos desde el CSV.");
+        } catch (err) {
+          alert("No se ha podido leer el CSV.");
+          console.error(err);
+        }
+      };
+      reader.readAsText(file, "utf-8");
+    }
+
     function prepararImportBackup() {
       if (!backupFileInput) return;
       backupFileInput.value = "";
       backupFileInput.click();
+    }
+
+    function fusionarBackupData(data) {
+      if (!data || typeof data !== "object") return;
+
+      if (Array.isArray(data.ingresos)) {
+        data.ingresos.forEach(i => {
+          if (!i.id) i.id = generarId();
+          if (!Array.isArray(i.tags)) i.tags = [];
+          if (!ingresos.some(ex => ex.id === i.id)) ingresos.push(i);
+        });
+      }
+      if (Array.isArray(data.gastos)) {
+        data.gastos.forEach(g => {
+          if (!g.id) g.id = generarId();
+          if (!Array.isArray(g.tags)) g.tags = [];
+          if (!gastos.some(ex => ex.id === g.id)) gastos.push(g);
+        });
+      }
+      if (Array.isArray(data.pisos)) {
+        data.pisos.forEach(p => {
+          if (!p.id) p.id = generarId();
+          if (!p.meses) p.meses = {};
+          if (!p.gastos) p.gastos = [];
+          if (!pisos.some(ex => ex.id === p.id)) pisos.push(p);
+        });
+      }
+      if (data.inversion && typeof data.inversion === "object") {
+        inversion = { ...inversion, ...data.inversion };
+        if (!Array.isArray(inversion.desgloseAnual)) inversion.desgloseAnual = [];
+      }
+
+      const selCatIng = document.getElementById("categoriaIngreso");
+      const selCatGas = document.getElementById("categoriaGasto");
+      if (selCatIng) {
+        const setIng = new Set();
+        Array.from(selCatIng.options).forEach(o => setIng.add(o.value));
+        if (Array.isArray(data.categoriasIngresos)) data.categoriasIngresos.forEach(c => setIng.add(c));
+        ingresos.forEach(m => { if (m.categoria) setIng.add(m.categoria); });
+        selCatIng.innerHTML = "";
+        Array.from(setIng).forEach(c => { const o = document.createElement("option"); o.value = o.textContent = c; selCatIng.appendChild(o); });
+      }
+      if (selCatGas) {
+        const setGas = new Set();
+        Array.from(selCatGas.options).forEach(o => setGas.add(o.value));
+        if (Array.isArray(data.categoriasGastos)) data.categoriasGastos.forEach(c => setGas.add(c));
+        gastos.forEach(m => { if (m.categoria) setGas.add(m.categoria); });
+        selCatGas.innerHTML = "";
+        Array.from(setGas).forEach(c => { const o = document.createElement("option"); o.value = o.textContent = c; selCatGas.appendChild(o); });
+      }
     }
 
     function manejarArchivoBackup(e) {
@@ -408,23 +667,59 @@
       reader.onload = function(ev) {
         try {
           const texto = ev.target.result;
-          JSON.parse(texto); // validación básica
-          const ok = confirm("Esto reemplazará todos los datos actuales por el backup seleccionado. ¿Continuar?");
-          if (!ok) return;
-          localStorage.setItem(STORAGE_KEY, texto);
-          alert("Backup importado correctamente. Se recargará la página.");
-          location.reload();
+          const data = JSON.parse(texto); // validación básica
+          if (modoFusionBackup) {
+            fusionarBackupData(data);
+            guardarEstado();
+            actualizarFiltrosOpciones();
+            actualizarListas();
+            renderPisos();
+            actualizarDesgloseAnual();
+            actualizarResumenMensual();
+            actualizarResumenInmobiliarias();
+            alert("Backup fusionado correctamente.");
+          } else {
+            const ok = confirm("Esto reemplazará todos los datos actuales por el backup seleccionado. ¿Continuar?");
+            if (!ok) return;
+            localStorage.setItem(STORAGE_KEY, texto);
+            alert("Backup importado correctamente. Se recargará la página.");
+            location.reload();
+          }
         } catch (err) {
           alert("El archivo no es un backup válido.");
           console.error(err);
         }
+        modoFusionBackup = false;
       };
       reader.readAsText(file, "utf-8");
     }
 
     if (btnBackupExport) btnBackupExport.addEventListener("click", exportarBackup);
-    if (btnBackupImport) btnBackupImport.addEventListener("click", prepararImportBackup);
+    if (btnBackupImport) btnBackupImport.addEventListener("click", function() { modoFusionBackup = false; prepararImportBackup(); });
+    if (btnBackupMerge) btnBackupMerge.addEventListener("click", function() { modoFusionBackup = true; prepararImportBackup(); });
     if (backupFileInput) backupFileInput.addEventListener("change", manejarArchivoBackup);
+    if (btnImportarCSV) btnImportarCSV.addEventListener("click", prepararImportCSV);
+    if (csvFileInput) csvFileInput.addEventListener("change", manejarArchivoCSV);
+
+    const filtroAnio = document.getElementById("filtroAnio");
+    const filtroMes = document.getElementById("filtroMes");
+    const filtroTag = document.getElementById("filtroTag");
+    const filtroBusqueda = document.getElementById("filtroBusqueda");
+    const btnLimpiarFiltros = document.getElementById("btnLimpiarFiltros");
+
+    if (filtroAnio) filtroAnio.addEventListener("change", () => { actualizarListas(); actualizarResumenMensual(); });
+    if (filtroMes) filtroMes.addEventListener("change", () => { actualizarListas(); actualizarResumenMensual(); });
+    if (filtroTag) filtroTag.addEventListener("change", () => { actualizarListas(); actualizarResumenMensual(); });
+    if (filtroBusqueda) filtroBusqueda.addEventListener("input", () => { actualizarListas(); actualizarResumenMensual(); });
+    if (btnLimpiarFiltros) btnLimpiarFiltros.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (filtroAnio) filtroAnio.value = "all";
+      if (filtroMes) filtroMes.value = "all";
+      if (filtroTag) filtroTag.value = "all";
+      if (filtroBusqueda) filtroBusqueda.value = "";
+      actualizarListas();
+      actualizarResumenMensual();
+    });
 
     document.querySelectorAll(".tab").forEach(tab => { tab.addEventListener("click", function() { document.querySelectorAll(".tab").forEach(t => t.classList.remove("activo")); document.querySelectorAll(".panel").forEach(p => p.classList.remove("activo")); this.classList.add("activo"); document.getElementById("panel-" + this.getAttribute("data-panel")).classList.add("activo"); }); });
 
@@ -458,6 +753,19 @@
             const roceCalc = rentaAnual / Number(piso.capitalInvertido) * 100;
             datosLine.push("ROCE: " + roceCalc.toFixed(1).replace(".", ",") + " %");
           }
+        }
+        let mesesPendientes = 0;
+        let maxMesAviso = 12;
+        if (anio === anioActual) maxMesAviso = mesActual;
+        else if (anio > anioActual) maxMesAviso = 0;
+        if (maxMesAviso > 0) {
+          for (let mes = 1; mes <= maxMesAviso; mes++) {
+            const datosMes = piso[key][mes.toString()];
+            if (!datosMes || !datosMes.cobrado) mesesPendientes++;
+          }
+        }
+        if (mesesPendientes > 0) {
+          datosLine.push("Meses sin cobrar: " + mesesPendientes);
         }
         bloque.innerHTML = "<div class=\"piso-nombre\">" + (piso.nombre || "Sin nombre") + (piso.renta ? " — " + formatearMoneda(piso.renta) + "/mes" : "") + "</div>" + (datosLine.length ? "<div class=\"piso-datos\">" + datosLine.map(x => "<span>" + x + "</span>").join("") + "</div>" : "");
         const grid = document.createElement("div"); grid.className = "meses-grid";
@@ -587,21 +895,84 @@
       guardarEstado(); renderPisos();
     });
 
+    function calcularCuotaHipoteca(prestamo, tae, anios) {
+      if (!prestamo || !anios) return 0;
+      const n = anios * 12;
+      const r = (tae || 0) / 100 / 12;
+      if (r === 0) return prestamo / n;
+      const factor = Math.pow(1 + r, n);
+      return prestamo * r * factor / (factor - 1);
+    }
+
     function actualizarDesgloseAnual() {
-      const anios = parseInt(document.getElementById("inversionAnios").value, 10) || inversion.anios || 25, prestamo = parseFloat(document.getElementById("inversionPrestamo").value) || inversion.prestamo || 0, cuota = parseFloat(document.getElementById("inversionCuota").value) || inversion.cuota || 0;
-      if (!inversion.desgloseAnual || !inversion.desgloseAnual.length) { inversion.desgloseAnual = []; for (let y = 1; y <= anios; y++) inversion.desgloseAnual.push({ anio: y, interesesMes: 0, amortizacionMes: cuota }); }
+      const anios = parseInt(document.getElementById("inversionAnios").value, 10) || inversion.anios || 25;
+      const prestamo = parseFloat(document.getElementById("inversionPrestamo").value) || inversion.prestamo || 0;
+      const cuota = parseFloat(document.getElementById("inversionCuota").value) || inversion.cuota || 0;
+      if (!inversion.desgloseAnual || !inversion.desgloseAnual.length) {
+        inversion.desgloseAnual = [];
+        for (let y = 1; y <= anios; y++) {
+          inversion.desgloseAnual.push({ anio: y, interesesMes: 0, amortizacionMes: cuota });
+        }
+      }
       const tbody = document.getElementById("desgloseAnualBody"); tbody.innerHTML = "";
       let cap = prestamo;
       const n = Math.min(anios, inversion.desgloseAnual.length || anios);
+      let baseYear = null;
+      if (selectPisoInversion && selectPisoInversion.value) {
+        const pisoSel = pisos.find(p => p.id === selectPisoInversion.value);
+        if (pisoSel && pisoSel.fechaCompra) {
+          const d = parsearFecha(pisoSel.fechaCompra);
+          if (d) baseYear = d.getFullYear();
+        }
+      }
       for (let i = 0; i < n; i++) {
         const row = inversion.desgloseAnual[i] || { anio: i + 1, interesesMes: 0, amortizacionMes: cuota };
-        cap = Math.max(0, cap - (row.amortizacionMes || 0) * 12);
+        const amortAnual = (row.amortizacionMes || 0) * 12;
+        cap = Math.max(0, cap - amortAnual);
+        const displayYear = baseYear != null ? (baseYear + i) : row.anio;
         const tr = document.createElement("tr");
-        tr.innerHTML = "<td>Año " + row.anio + "</td><td><input type=\"number\" step=\"0.01\" data-idx=\"" + i + "\" data-campo=\"interesesMes\" value=\"" + (row.interesesMes || 0) + "\" style=\"width:90px\" /></td><td><input type=\"number\" step=\"0.01\" data-idx=\"" + i + "\" data-campo=\"amortizacionMes\" value=\"" + (row.amortizacionMes || 0) + "\" style=\"width:90px\" /></td><td>" + formatearMoneda(cap) + "</td>";
+        tr.innerHTML =
+          "<td>Año " + displayYear + "</td>" +
+          "<td><input type=\"number\" step=\"0.01\" data-idx=\"" + i + "\" data-campo=\"interesesMes\" value=\"" + (row.interesesMes || 0) + "\" style=\"width:90px\" /></td>" +
+          "<td><input type=\"number\" step=\"0.01\" data-idx=\"" + i + "\" data-campo=\"amortizacionMes\" value=\"" + (row.amortizacionMes || 0) + "\" style=\"width:90px\" /></td>" +
+          "<td>" + formatearMoneda(cap) + "</td>";
         tbody.appendChild(tr);
       }
-      tbody.querySelectorAll("input[data-idx]").forEach(inp => { inp.addEventListener("change", function() { const idx = parseInt(this.getAttribute("data-idx"), 10), campo = this.getAttribute("data-campo"), val = parseFloat(this.value) || 0; if (!inversion.desgloseAnual[idx]) inversion.desgloseAnual[idx] = { anio: idx + 1, interesesMes: 0, amortizacionMes: 0 }; inversion.desgloseAnual[idx][campo] = val; guardarEstado(); actualizarDesgloseAnual(); }); });
+      tbody.querySelectorAll("input[data-idx]").forEach(inp => {
+        inp.addEventListener("change", function() {
+          const idx = parseInt(this.getAttribute("data-idx"), 10);
+          const campo = this.getAttribute("data-campo");
+          const val = parseFloat(this.value) || 0;
+          if (!inversion.desgloseAnual[idx]) {
+            inversion.desgloseAnual[idx] = { anio: idx + 1, interesesMes: 0, amortizacionMes: 0 };
+          }
+          inversion.desgloseAnual[idx][campo] = val;
+          guardarEstado();
+          actualizarDesgloseAnual();
+        });
+      });
     }
+
+    const btnCalcularCuota = document.getElementById("btnCalcularCuota");
+    if (btnCalcularCuota) {
+      btnCalcularCuota.addEventListener("click", function() {
+        const tae = parseFloat(document.getElementById("inversionTAE").value) || 0;
+        const anios = parseInt(document.getElementById("inversionAnios").value, 10) || 0;
+        const prestamo = parseFloat(document.getElementById("inversionPrestamo").value) || 0;
+        if (!prestamo || !anios) {
+          alert("Introduce al menos años y préstamo para calcular la cuota.");
+          return;
+        }
+        const cuota = calcularCuotaHipoteca(prestamo, tae, anios);
+        document.getElementById("inversionCuota").value = cuota.toFixed(2);
+        inversion.cuota = cuota;
+        inversion.prestamo = prestamo;
+        inversion.anios = anios;
+        inversion.tae = tae || null;
+        actualizarDesgloseAnual();
+      });
+    }
+
     document.getElementById("btnGuardarInversion").addEventListener("click", function() {
       inversion.tae = parseFloat(document.getElementById("inversionTAE").value) || null;
       inversion.anios = parseInt(document.getElementById("inversionAnios").value, 10) || null;
@@ -748,6 +1119,14 @@
     const selAnioInm = document.getElementById("anioResumenInmobiliarias");
     if (selAnioInm) selAnioInm.addEventListener("change", actualizarResumenInmobiliarias);
     if (selectPisoInversion) selectPisoInversion.addEventListener("change", cargarHipotecaDePisoSeleccionado);
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function() {
+        navigator.serviceWorker.register("./service-worker.js").catch(function(err) {
+          console.error("Service worker registration failed", err);
+        });
+      });
+    }
 
     cargarEstado();
     actualizarSelectorPisoInversion();
