@@ -171,8 +171,8 @@
         <div class="card-header"><div class="card-title">Añadir piso / inversión inmobiliaria</div></div>
         <form id="formPiso">
           <div class="full"><label for="nombrePiso">Nombre de la calle / piso</label><input type="text" id="nombrePiso" placeholder="Ej: Calle Mayor 5, 3ºA" required /></div>
-          <div><label for="totalCompraPiso">Valor total del piso (€)</label><input type="number" id="totalCompraPiso" min="0" step="100" placeholder="0" /></div>
-          <div><label for="capitalInvertidoPiso">Capital aportado (€)</label><input type="number" id="capitalInvertidoPiso" min="0" step="100" placeholder="0" /></div>
+          <div><label for="totalCompraPiso">Valor total del piso (€)</label><input type="number" id="totalCompraPiso" min="0" step="0.01" placeholder="0" /></div>
+          <div><label for="capitalInvertidoPiso">Capital aportado (€)</label><input type="number" id="capitalInvertidoPiso" min="0" step="0.01" placeholder="0" /></div>
           <div><label for="rentaPiso">Renta mensual (€)</label><input type="number" id="rentaPiso" min="0" step="0.01" placeholder="0" /></div>
           <div><label for="fechaCompraPiso">Fecha de compra</label><input type="date" id="fechaCompraPiso" /></div>
           <div class="full"><button type="submit" class="btn-add-mov">Añadir piso</button></div>
@@ -437,6 +437,8 @@
       const ahora = new Date();
       const anioActual = ahora.getFullYear();
       const mesActual = ahora.getMonth() + 1;
+
+      actualizarSelectorPisoInversion();
 
       pisos.forEach(piso => {
         if (!piso.gastos) piso.gastos = [];
