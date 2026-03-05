@@ -140,8 +140,8 @@
         <div class="filters-group"><button id="btnLimpiarFiltros" class="btn-clear-filters">Quitar filtros</button></div>
       </div>
       <div class="charts">
-        <div class="chart-card"><div class="chart-title">Gastos por categoría</div><div id="graficoGastos"></div></div>
         <div class="chart-card"><div class="chart-title">Ingresos por categoría</div><div id="graficoIngresos"></div></div>
+        <div class="chart-card"><div class="chart-title">Gastos por categoría</div><div id="graficoGastos"></div></div>
         <div class="chart-card"><div class="chart-title">Evolución ingresos vs gastos (año seleccionado)</div><div id="graficoEvolucion"></div></div>
       </div>
       <div class="grid">
@@ -220,12 +220,6 @@
         <div class="desglose-anual"><table><thead><tr><th>Año</th><th>Intereses (€/mes)</th><th>Amortización (€/mes)</th><th>Capital pendiente (€)</th></tr></thead><tbody id="desgloseAnualBody"></tbody></table></div>
       </div>
     </div>
-
-      <section class="resumen-mensual">
-        <h2>Resumen por mes del año</h2>
-        <div class="filters-group resumen-anio-select"><label for="resumenAnio">Año a resumir</label><select id="resumenAnio" class="resumen-anio-select"></select></div>
-        <div id="resumenMensualContenedor"></div>
-      </section>
     </div>
 
   <script>
@@ -1009,23 +1003,9 @@
     }
 
     function actualizarResumenMensual() {
-      const selectAnio = document.getElementById("resumenAnio"), cont = document.getElementById("resumenMensualContenedor");
-      const años = new Set(); [...ingresos, ...gastos].forEach(m => { const d = parsearFecha(m.fecha); if (d) años.add(d.getFullYear()); }); años.add(new Date().getFullYear());
-      selectAnio.innerHTML = ""; Array.from(años).sort((a,b)=>b-a).forEach(a => { const o = document.createElement("option"); o.value = a; o.textContent = a; selectAnio.appendChild(o); });
-      if (!selectAnio.value) selectAnio.value = new Date().getFullYear();
-      const anio = parseInt(selectAnio.value, 10); cont.innerHTML = "";
-      for (let mes = 1; mes <= 12; mes++) {
-        const ingM = ingresos.filter(m => { const d = parsearFecha(m.fecha); return d && d.getFullYear() === anio && d.getMonth() + 1 === mes; });
-        const gasM = gastos.filter(m => { const d = parsearFecha(m.fecha); return d && d.getFullYear() === anio && d.getMonth() + 1 === mes; });
-        const tIng = ingM.reduce((s, m) => s + (m.monto || 0), 0), tGas = gasM.reduce((s, m) => s + (m.monto || 0), 0);
-        const pct = tIng > 0 ? ((tIng - tGas) / tIng * 100).toFixed(1).replace(".", ",") : "0,0";
-        const gastosCat = agruparPorCategoria(gasM);
-        const card = document.createElement("div"); card.className = "mes-resumen-card";
-        card.innerHTML = "<h4>" + MESES[mes-1] + " " + anio + "</h4><div class=\"ingresos-mes\">Ingresos: " + formatearMoneda(tIng) + "</div><div class=\"gastos-mes\">" + (gastosCat.length ? gastosCat.map(([c,v]) => "<div class=\"gasto-cat\"><span>" + c + "</span><span>" + formatearMoneda(v) + "</span></div>").join("") : "<div class=\"gasto-cat\">Sin gastos</div>") + "<div class=\"gasto-cat\"><strong>Total gastos</strong><strong>" + formatearMoneda(tGas) + "</strong></div></div><div class=\"ahorro-pct\">% ahorro: " + pct + " %</div>";
-        cont.appendChild(card);
-      }
+      // Resumen mensual desactivado actualmente
+      return;
     }
-    document.getElementById("resumenAnio").addEventListener("change", actualizarResumenMensual);
 
     function actualizarResumenInmobiliarias() {
       const card = document.getElementById("resumenInmobiliariasCard");
