@@ -239,7 +239,45 @@
 
     function generarId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
     function formatearMoneda(v) { return (v ?? 0).toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €"; }
-    function parsearFecha(s) { if (!s) return null; const d = new Date(s); return isNaN(d.getTime()) ? null : d; }
+    function parsearFecha(s) {
+      if (!s || typeof s !== "string") return null;
+      const t = s.trim();
+      const partes = t.split("/");
+      if (partes.length === 3) {
+        const dia = parseInt(partes[0], 10), mes = parseInt(partes[1], 10) - 1, anio = parseInt(partes[2], 10);
+        if (!isNaN(dia) && !isNaN(mes) && !isNaN(anio)) {
+          const d = new Date(anio, mes, dia);
+          if (d.getDate() === dia && d.getMonth() === mes && d.getFullYear() === anio) return d;
+        }
+      }
+      const d = new Date(t);
+      return isNaN(d.getTime()) ? null : d;
+    }
+    function fechaDesdeDate(d) {
+      if (!d || !(d instanceof Date) || isNaN(d.getTime())) return "";
+      const dia = String(d.getDate()).padStart(2, "0");
+      const mes = String(d.getMonth() + 1).padStart(2, "0");
+      const anio = d.getFullYear();
+      return dia + "/" + mes + "/" + anio;
+    }
+    function fechaInputToDDMMYYYY(isoStr) {
+      if (!isoStr) return "";
+      const d = parsearFecha(isoStr);
+      return d ? fechaDesdeDate(d) : isoStr;
+    }
+    function fechaParaInput(s) {
+      if (!s) return "";
+      const d = parsearFecha(s);
+      if (!d) return "";
+      const y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, "0"), dia = String(d.getDate()).padStart(2, "0");
+      return y + "-" + m + "-" + dia;
+    }
+    function formatearFechaDisplay(s) {
+      if (!s) return "-";
+      const d = parsearFecha(s);
+      if (!d) return s || "-";
+      return fechaDesdeDate(d);
+    }
 
     function guardarEstado() {
       const data = { ingresos, gastos, categoriasIngresos: Array.from(document.getElementById("categoriaIngreso").options).map(o => o.value), categoriasGastos: Array.from(document.getElementById("categoriaGasto").options).map(o => o.value), pisos, inversion };
@@ -420,10 +458,17 @@
 
     function actualizarListas() {
       const ingF = filtrarMovimientos(ingresos), gasF = filtrarMovimientos(gastos);
+      const ordenarPorFecha = (a, b) => {
+        const ta = (parsearFecha(a.fecha) || new Date(0)).getTime();
+        const tb = (parsearFecha(b.fecha) || new Date(0)).getTime();
+        return tb - ta;
+      };
+      ingF.sort(ordenarPorFecha);
+      gasF.sort(ordenarPorFecha);
       let tIng = 0, tGas = 0;
       const li = document.getElementById("listaIngresos"), lg = document.getElementById("listaGastos");
-      li.innerHTML = ""; ingF.forEach(ing => { tIng += ing.monto; const tags = Array.isArray(ing.tags) ? ing.tags : []; li.innerHTML += "<tr><td>" + (ing.fecha || "-") + "</td><td>" + ing.categoria + "</td><td><div>" + (ing.descripcion || "-") + "</div>" + (tags.length ? "<div class=\"tags\">" + tags.map(t => "<span class=\"tag-pill\">" + t + "</span>").join("") + "</div>" : "") + "</td><td style=\"text-align:right\" class=\"monto-pos\">" + formatearMoneda(ing.monto) + "</td><td style=\"text-align:right\"><div class=\"acciones\"><button class=\"btn-accion editar\" data-id=\"" + ing.id + "\" data-tipo=\"ingreso\">Editar</button><button class=\"btn-accion borrar\" data-id=\"" + ing.id + "\" data-tipo=\"ingreso\">Borrar</button></div></td></tr>"; });
-      lg.innerHTML = ""; gasF.forEach(g => { tGas += g.monto; const tags = Array.isArray(g.tags) ? g.tags : []; lg.innerHTML += "<tr><td>" + (g.fecha || "-") + "</td><td>" + g.categoria + "</td><td><div>" + (g.descripcion || "-") + "</div>" + (tags.length ? "<div class=\"tags\">" + tags.map(t => "<span class=\"tag-pill\">" + t + "</span>").join("") + "</div>" : "") + "</td><td style=\"text-align:right\" class=\"monto-neg\">-" + formatearMoneda(g.monto) + "</td><td style=\"text-align:right\"><div class=\"acciones\"><button class=\"btn-accion editar\" data-id=\"" + g.id + "\" data-tipo=\"gasto\">Editar</button><button class=\"btn-accion borrar\" data-id=\"" + g.id + "\" data-tipo=\"gasto\">Borrar</button></div></td></tr>"; });
+      li.innerHTML = ""; ingF.forEach(ing => { tIng += ing.monto; const tags = Array.isArray(ing.tags) ? ing.tags : []; li.innerHTML += "<tr><td>" + formatearFechaDisplay(ing.fecha) + "</td><td>" + ing.categoria + "</td><td><div>" + (ing.descripcion || "-") + "</div>" + (tags.length ? "<div class=\"tags\">" + tags.map(t => "<span class=\"tag-pill\">" + t + "</span>").join("") + "</div>" : "") + "</td><td style=\"text-align:right\" class=\"monto-pos\">" + formatearMoneda(ing.monto) + "</td><td style=\"text-align:right\"><div class=\"acciones\"><button class=\"btn-accion editar\" data-id=\"" + ing.id + "\" data-tipo=\"ingreso\">Editar</button><button class=\"btn-accion borrar\" data-id=\"" + ing.id + "\" data-tipo=\"ingreso\">Borrar</button></div></td></tr>"; });
+      lg.innerHTML = ""; gasF.forEach(g => { tGas += g.monto; const tags = Array.isArray(g.tags) ? g.tags : []; lg.innerHTML += "<tr><td>" + formatearFechaDisplay(g.fecha) + "</td><td>" + g.categoria + "</td><td><div>" + (g.descripcion || "-") + "</div>" + (tags.length ? "<div class=\"tags\">" + tags.map(t => "<span class=\"tag-pill\">" + t + "</span>").join("") + "</div>" : "") + "</td><td style=\"text-align:right\" class=\"monto-neg\">-" + formatearMoneda(g.monto) + "</td><td style=\"text-align:right\"><div class=\"acciones\"><button class=\"btn-accion editar\" data-id=\"" + g.id + "\" data-tipo=\"gasto\">Editar</button><button class=\"btn-accion borrar\" data-id=\"" + g.id + "\" data-tipo=\"gasto\">Borrar</button></div></td></tr>"; });
       document.getElementById("totalIngresos").textContent = formatearMoneda(tIng);
       document.getElementById("totalGastos").textContent = formatearMoneda(tGas);
       document.getElementById("emptyIngresos").style.display = ingF.length ? "none" : "block";
@@ -436,8 +481,8 @@
         const id = this.getAttribute("data-id"), tipo = this.getAttribute("data-tipo");
         const mov = tipo === "ingreso" ? ingresos.find(i => i.id === id) : gastos.find(g => g.id === id);
         if (!mov) return;
-        if (tipo === "ingreso") { document.getElementById("fechaIngreso").value = mov.fecha || ""; document.getElementById("categoriaIngreso").value = mov.categoria || ""; document.getElementById("montoIngreso").value = mov.monto ?? ""; document.getElementById("descripcionIngreso").value = mov.descripcion || ""; document.getElementById("tagsIngreso").value = (mov.tags || []).join(", "); editandoIngresoId = id; editandoGastoId = null; document.getElementById("estadoIngreso").textContent = "Editando."; document.getElementById("estadoGasto").textContent = ""; document.getElementById("btnSubmitIngreso").textContent = "Guardar"; document.getElementById("btnSubmitGasto").textContent = "Añadir gasto"; }
-        else { document.getElementById("fechaGasto").value = mov.fecha || ""; document.getElementById("categoriaGasto").value = mov.categoria || ""; document.getElementById("montoGasto").value = mov.monto ?? ""; document.getElementById("descripcionGasto").value = mov.descripcion || ""; document.getElementById("tagsGasto").value = (mov.tags || []).join(", "); editandoGastoId = id; editandoIngresoId = null; document.getElementById("estadoGasto").textContent = "Editando."; document.getElementById("estadoIngreso").textContent = ""; document.getElementById("btnSubmitGasto").textContent = "Guardar"; document.getElementById("btnSubmitIngreso").textContent = "Añadir ingreso"; }
+        if (tipo === "ingreso") { document.getElementById("fechaIngreso").value = fechaParaInput(mov.fecha); document.getElementById("categoriaIngreso").value = mov.categoria || ""; document.getElementById("montoIngreso").value = mov.monto ?? ""; document.getElementById("descripcionIngreso").value = mov.descripcion || ""; document.getElementById("tagsIngreso").value = (mov.tags || []).join(", "); editandoIngresoId = id; editandoGastoId = null; document.getElementById("estadoIngreso").textContent = "Editando."; document.getElementById("estadoGasto").textContent = ""; document.getElementById("btnSubmitIngreso").textContent = "Guardar"; document.getElementById("btnSubmitGasto").textContent = "Añadir gasto"; }
+        else { document.getElementById("fechaGasto").value = fechaParaInput(mov.fecha); document.getElementById("categoriaGasto").value = mov.categoria || ""; document.getElementById("montoGasto").value = mov.monto ?? ""; document.getElementById("descripcionGasto").value = mov.descripcion || ""; document.getElementById("tagsGasto").value = (mov.tags || []).join(", "); editandoGastoId = id; editandoIngresoId = null; document.getElementById("estadoGasto").textContent = "Editando."; document.getElementById("estadoIngreso").textContent = ""; document.getElementById("btnSubmitGasto").textContent = "Guardar"; document.getElementById("btnSubmitIngreso").textContent = "Añadir ingreso"; }
       }; });
       document.querySelectorAll(".btn-accion.borrar").forEach(btn => { btn.onclick = function() {
         if (!confirm("¿Borrar?")) return;
@@ -450,7 +495,9 @@
 
     document.getElementById("formIngresos").addEventListener("submit", function(e) {
       e.preventDefault();
-      const fecha = document.getElementById("fechaIngreso").value, categoria = document.getElementById("categoriaIngreso").value, monto = parseFloat(document.getElementById("montoIngreso").value || "0"), descripcion = document.getElementById("descripcionIngreso").value.trim(), tags = (document.getElementById("tagsIngreso").value || "").split(",").map(t => t.trim()).filter(Boolean);
+      const fechaInput = document.getElementById("fechaIngreso").value;
+      const fecha = fechaInputToDDMMYYYY(fechaInput);
+      const categoria = document.getElementById("categoriaIngreso").value, monto = parseFloat(document.getElementById("montoIngreso").value || "0"), descripcion = document.getElementById("descripcionIngreso").value.trim(), tags = (document.getElementById("tagsIngreso").value || "").split(",").map(t => t.trim()).filter(Boolean);
       if (!monto || monto <= 0) return;
       if (editandoIngresoId) { const idx = ingresos.findIndex(i => i.id === editandoIngresoId); if (idx !== -1) { ingresos[idx] = { ...ingresos[idx], fecha, categoria, monto, descripcion, tags }; } }
       else ingresos.push({ id: generarId(), fecha, categoria, monto, descripcion, tags });
@@ -458,7 +505,9 @@
     });
     document.getElementById("formGastos").addEventListener("submit", function(e) {
       e.preventDefault();
-      const fecha = document.getElementById("fechaGasto").value, categoria = document.getElementById("categoriaGasto").value, monto = parseFloat(document.getElementById("montoGasto").value || "0"), descripcion = document.getElementById("descripcionGasto").value.trim(), tags = (document.getElementById("tagsGasto").value || "").split(",").map(t => t.trim()).filter(Boolean);
+      const fechaInput = document.getElementById("fechaGasto").value;
+      const fecha = fechaInputToDDMMYYYY(fechaInput);
+      const categoria = document.getElementById("categoriaGasto").value, monto = parseFloat(document.getElementById("montoGasto").value || "0"), descripcion = document.getElementById("descripcionGasto").value.trim(), tags = (document.getElementById("tagsGasto").value || "").split(",").map(t => t.trim()).filter(Boolean);
       if (!monto || monto <= 0) return;
       if (editandoGastoId) { const idx = gastos.findIndex(g => g.id === editandoGastoId); if (idx !== -1) { gastos[idx] = { ...gastos[idx], fecha, categoria, monto, descripcion, tags }; } }
       else gastos.push({ id: generarId(), fecha, categoria, monto, descripcion, tags });
@@ -538,7 +587,7 @@
             cols.push(actual);
             if (cols.length < 6) continue;
             const tipo = cols[0].trim();
-            const fecha = cols[1].trim();
+            const fecha = fechaInputToDDMMYYYY(cols[1].trim()) || cols[1].trim();
             const categoria = cols[2].trim();
             const descripcion = cols[3].trim();
             const etiquetasStr = cols[4].trim();
